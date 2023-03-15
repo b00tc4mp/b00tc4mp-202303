@@ -1,0 +1,36 @@
+h1 {
+  font-size: 60px;
+  text-align: center;
+  background-color: darkgray;
+  border: 8px solid #000000;
+  margin-bottom: 0px;
+}
+
+body {
+  background-color: maroon;
+  color: ghostwhite;
+  text-align: center;
+}
+
+div {
+  font-size: 20px;
+  background-color: darkgrey;
+  padding: 12px;
+  text-align: center;
+  margin-top: 4px;
+  border: #000000 4px solid;
+}
+
+p {
+  margin-bottom: 1px;
+}
+
+input {
+  margin: 4px;
+  font-size: 20px;
+}
+
+button {
+  font-size: 20px;
+  margin-top: 4px;
+}
