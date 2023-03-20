@@ -68,7 +68,7 @@ body {
 .form {
   background-color: rgba(0, 0, 0, 0.4);
   border: whitesmoke solid 4px;
-  width: 350px;
+  width: 400px;
   height: auto;
   display: flex;
   align-items: center;
@@ -126,6 +126,30 @@ p {
 
 .section {
   display: flex;
+  align-items: center;
+  height: 40px;
+  margin-left: 10px;
+}
+
+.p-section {
+  margin-right: 5px;
+}
+
+.submit {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.input-submit {
+  height: 30px;
+  width: 120px;
+}
+
+.have-account {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
 }
 
 a {
@@ -143,11 +167,14 @@ a {
 }
 
 .select {
-  height: 32px;
+  height: 21px;
+  margin-left: 3px;
+  margin-right: 3px;
 }
 
 #mensaje {
   color: transparent;
   height: 0px;
   width: 0px;
+  margin: 0px;
 }

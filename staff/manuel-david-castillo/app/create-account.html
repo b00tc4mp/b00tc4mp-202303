@@ -32,24 +32,24 @@
       />
     </div>
   <div class="form"> 
+    <h2>Fill in the blank fields</h2>
+
         <form action="">
 
           <section class="section">
-            <p>Name:</p>
+            <p class="p-section">Name:</p>
             <input id="name" type="text" placeholder="Perico" />
           </section>
 
           <section class="section" >
-            <p>Last Name:</p>
+            <p class="p-section">Last Name:</p>
             <input id="last-name" type="text" placeholder="De los palotes">
           </section>
 
           <section class="section">
-            <p>Date of birth</p>
+            <p class="p-section">Date of birth: </p>
             <input min="1" max="31" value="27" class="day" type="number">
-          </section>
-
-          <section class="section"> 
+          
             <select class="select" name="month" id="month"> 
             <option>January</option>
             <option>February</option>
@@ -64,29 +64,30 @@
             <option>November</option>
             <option>December</option>
           </select>
+
           <input min="1900" max="2007" value="1999" class="age" type="number">
           </section>
 
-        <section class="section">
-          <p>E-mail:</p>
+        <section class="section e-mail">
+          <p class="p-section">E-mail:</p>
           <input id="e-mail" type="email" placeholder="alguien@gmail.com" />
         </section>
 
         <section class="section">
-          <p>Password:</p>
+          <p class="p-section">Password:</p>
           <input min="6" id="password" type="password" placeholder="12345" />
         </section>
 
         <section class="section">
-          <p>Confirm password:</p>
+          <p class="p-section">Confirm password:</p>
           <input min="6" id="confirm-password" type="password" placeholder="12345" />
         </section>
 
-        <div>
-          <input id="submit" class="submit" type="submit" value="Create account" />
+        <div class="submit">
+          <input id="submit" class="input-submit" type="submit" value="Create account" />
         </div>
 
-        <div>
+        <div class="have-account">
            <a
             target="_blank"
             href="https://trainsmart-my-first-app.neocities.org/log-in/"
