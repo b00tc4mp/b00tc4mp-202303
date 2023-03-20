@@ -12,6 +12,7 @@ document.getElementById("submit").onclick = function (event) {
     document.getElementById("mensaje").style.width = "100%";
     document.getElementById("mensaje").style.height = "100%";
     document.getElementById("mensaje").style.textAlign = "center";
+    document.getElementById("mensaje").style.marginBottom = "10px";
   } else if (
     document.getElementById("password").value !=
     document.getElementById("confirm-password").value
