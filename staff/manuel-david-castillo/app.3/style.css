@@ -172,12 +172,6 @@ a {
   margin-right: 3px;
 }
 
-.div-mensaje {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .mensaje {
   display: none;
   color: red;
@@ -215,15 +209,16 @@ a {
   width: 90%;
 }
 
-.index {
+.menu {
   background-color: black;
   width: 300px;
   height: auto;
+  margin-right: 50px;
   margin-top: 10px;
   border: solid gray 4px;
 }
 
-.div-index {
+.div-menu {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -231,9 +226,8 @@ a {
   border: 1px solid gray;
 }
 
-.p-div-index {
+.p-menu {
   width: min-content;
-  margin: 0;
 }
 
 .calendar {
@@ -245,7 +239,6 @@ a {
   width: 90%;
   height: 400px;
   margin-top: 10px;
-  margin-left: 50px;
 }
 
 .month-and-year {
@@ -302,64 +295,4 @@ a {
   color: black;
   display: flex;
   margin: 2px;
-}
-
-.calculator {
-  width: 400px;
-  border: solid 5px grey;
-  display: flex;
-  flex-direction: column;
-  margin-left: 50px;
-}
-
-.h3 {
-  color: white;
-}
-
-.div-calculator {
-  background-color: black;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: solid 2px grey;
-  border-left: 0;
-  border-right: 0;
-}
-
-.div-div-calculator {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-}
-
-.div-reps-bench-press {
-  display: flex;
-}
-
-.kg-bench-press {
-  margin-left: 5px;
-}
-
-.input-calculator {
-  margin-left: 5px;
-}
-
-.input-bench-press {
-  width: 200px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-.input-pull-up {
-  width: 200px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-.result-1 {
-  color: white;
-  margin-bottom: 10px;
-}
-.result-2 {
-  color: white;
-  margin-bottom: 10px;
 }

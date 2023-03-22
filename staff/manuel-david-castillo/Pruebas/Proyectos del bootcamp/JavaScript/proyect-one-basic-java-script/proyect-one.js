@@ -522,3 +522,24 @@ function repeatStr(n, s) {
 debugger;
 console.log(repeatStr(4, "hello"));
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/* Función para ver si están bien puestos los parentesis */
+function validParentheses(parenStr) {
+  let counter = 0;
+  for (let i = parenStr.length - 1; i >= 0; i--) {
+    if (counter < 0) {
+      return false;
+    }
+    if (parenStr[i] === ")") {
+      counter++;
+    } else if (parenStr[i] === "(") {
+      counter--;
+    }
+  }
+  if (counter === 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+console.log(validParentheses("(())"));
