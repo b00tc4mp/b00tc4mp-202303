@@ -191,24 +191,24 @@ a {
   align-items: start;
 }
 
-.h2-calendar {
+.h2-home {
   font-size: 30px;
 }
 
-.div-h2-calendar {
+.div-h2-home {
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
-.home-calendar {
+.home {
   display: flex;
   width: 100%;
   flex-direction: column;
   align-items: center;
 }
 
-.menu-and-calendar {
+.home-calendar-calculator {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -216,11 +216,13 @@ a {
 }
 
 .index {
-  background-color: black;
-  width: 300px;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
   height: auto;
-  margin-top: 10px;
-  border: solid gray 4px;
+  border-bottom: solid gray 4px;
+  border-top: solid gray 2px;
+  display: flex;
+  justify-content: space-around;
 }
 
 .div-index {
@@ -228,11 +230,11 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid gray;
+  width: auto;
 }
 
 .p-div-index {
-  width: min-content;
+  width: auto;
   margin: 0;
 }
 
@@ -362,4 +364,8 @@ a {
 .result-2 {
   color: white;
   margin-bottom: 10px;
+}
+
+.off {
+  display: none;
 }

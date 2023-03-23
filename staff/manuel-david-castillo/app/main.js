@@ -1,3 +1,33 @@
+/* Perfiles de la app */
+let accounts = [
+  (manuelDa = {
+    name: "Manuel David",
+    eMail: "manuelda27999@gmail.com",
+    password: "manuel123",
+  }),
+  (nico = {
+    name: "Nico",
+    eMail: "nico@gmail.com",
+    password: "nico123",
+  }),
+  (manuelBarzi = {
+    name: "Manuel Barzi",
+    eMail: "manuelbarzi@gmail.com",
+    password: "barzi123",
+  }),
+  (paco = {
+    name: "Paco",
+    eMail: "paco@gmail.com",
+    password: "paco123",
+  }),
+  (benito = {
+    name: "Benito",
+    eMail: "benito@gmail.com",
+    password: "benito123",
+  }),
+];
+
+/* Partes de la web */
 let loginPage = {};
 let createAccountPage = {};
 let imageAndForm = {};
@@ -8,119 +38,161 @@ let calculator = {};
 loginPage.container = document.querySelector(".log-in-form");
 createAccountPage.container = document.querySelector(".create-account-form");
 imageAndForm.container = document.querySelector(".image-and-form");
-homePage.container = document.querySelector(".home-calendar");
+homePage.container = document.querySelector(".home");
 calendar.container = document.querySelector(".calendar");
 calculator.container = document.querySelector(".calculator");
 
-loginPage.container.style.display = "flex";
-createAccountPage.container.style.display = "none";
-imageAndForm.container.style.display = "flex";
-homePage.container.style.display = "none";
-calendar.container.style.display = "none";
-calculator.container.style.display = "none";
-
+/* Función para pasar de log-in a create an account */
 loginPage.container.querySelector("a").onclick = function (event) {
   event.preventDefault();
 
-  loginPage.container.style.display = "none";
-  createAccountPage.container.style.display = "flex";
+  loginPage.container.classList.add("off");
+  createAccountPage.container.classList.remove("off");
 };
 
+/* Función para pasar de create-account a log-in */
 createAccountPage.container.querySelector("a").onclick = function (event) {
   event.preventDefault();
 
-  createAccountPage.container.style.display = "none";
-  loginPage.container.style.display = "flex";
+  createAccountPage.container.classList.add("off");
+  loginPage.container.classList.remove("off");
 };
 
-document.querySelector(".input-log-in").onclick = function (event) {
+/* Funciones del botón de log-in */
+loginPage.container.querySelector("form").onsubmit = function (event) {
   event.preventDefault();
-  console.log("hola");
   if (
-    document.querySelector(".input-e-mail").value === "" ||
-    document.querySelector(".input-password").value === ""
+    loginPage.container.querySelector(".input-e-mail").value === "" ||
+    loginPage.container.querySelector(".input-password").value === ""
   ) {
-    document.querySelector(".mensaje").innerText = "Campo incompleto";
+    loginPage.container.querySelector(".mensaje").innerText =
+      "Campo incompleto";
     loginPage.container.querySelector(".mensaje").style.display = "flex";
   }
-  if (
-    (loginPage.container.querySelector(".input-e-mail").value ===
-      "manuelda27999@gmail.com") &
-    (loginPage.container.querySelector(".input-password").value === "123123")
-  ) {
-    document.querySelector(".image-and-form").style.display = "none";
-    homePage.container.style.display = "flex";
+
+  for (i = 0; i < accounts.length; i++) {
+    if (
+      (loginPage.container.querySelector(".input-e-mail").value ===
+        accounts[i].eMail) &
+      (loginPage.container.querySelector(".input-password").value ===
+        accounts[i].password)
+    ) {
+      imageAndForm.container.classList.add("off");
+      homePage.container.classList.remove("off");
+    }
   }
 };
 
+/* Funciones del botón create-account */
+createAccountPage.container.querySelector("form").onsubmit = function (event) {
+  event.preventDefault();
+  if (
+    createAccountPage.container.querySelector(".name").value === "" ||
+    createAccountPage.container.querySelector(".last-name").value === "" ||
+    createAccountPage.container.querySelector(".input-e-mail").value === "" ||
+    createAccountPage.container.querySelector(".input-password").value === "" ||
+    createAccountPage.container.querySelector(".confirm-password").value === ""
+  ) {
+    createAccountPage.container.querySelector(".mensaje").innerText =
+      "Campo incompleto";
+    createAccountPage.container.querySelector(".mensaje").style.display =
+      "flex";
+  }
+
+  if (
+    createAccountPage.container.querySelector(".input-password").value !=
+    createAccountPage.container.querySelector(".confirm-password").value
+  ) {
+    createAccountPage.container.querySelector(".mensaje").innerText =
+      "Contraseñas diferentes";
+    createAccountPage.container.querySelector(".mensaje").style.display =
+      "flex";
+  }
+
+  for (i = 0; i < accounts.length; i++) {
+    if (
+      createAccountPage.container.querySelector(".input-e-mail").value ===
+      accounts[i].eMail
+    ) {
+      alert("Ya tienes cuenta");
+      createAccountPage.container.classList.add("off");
+      loginPage.container.classList.remove("off");
+      loginPage.container.querySelector(".input-e-mail").value =
+        accounts[i].eMail;
+    }
+  }
+
+  for (i = 0; i < accounts.length; i++) {
+    if (
+      createAccountPage.container.querySelector(".name").value ===
+      accounts[i].name
+    ) {
+      createAccountPage.container.querySelector(".mensaje").innerText =
+        "Nombre no disponible";
+      createAccountPage.container.querySelector(".mensaje").style.display =
+        "flex";
+    }
+  }
+};
+
+/* Funciones del menu */
 homePage.container.querySelector(".index-menu").onclick = function (event) {
   event.preventDefault();
-  calculator.container.style.display = "none";
-  calendar.container.style.display = "none";
+  calculator.container.classList.add("off");
+  calendar.container.classList.add("off");
   document.querySelector(".h2").innerText = "Menu";
 };
 
 homePage.container.querySelector(".index-calendar").onclick = function (event) {
   event.preventDefault();
-  calculator.container.style.display = "none";
-  calendar.container.style.display = "grid";
   document.querySelector(".h2").innerText = "Calendar";
+  if (calendar.container.classList[1] === "off") {
+    calendar.container.classList.remove("off");
+  } else {
+    calendar.container.classList.add("off");
+  }
 };
 
 homePage.container.querySelector(".index-calculator").onclick = function (
   event
 ) {
   event.preventDefault();
-  calculator.container.style.display = "flex";
-  calendar.container.style.display = "none";
   document.querySelector(".h2").innerText = "Calculator";
+  if (calculator.container.classList[1] === "off") {
+    calculator.container.classList.remove("off");
+  } else {
+    calculator.container.classList.add("off");
+  }
 };
 
-/* No funciona */
+homePage.container.querySelector(".index-sing-out").onclick = function (event) {
+  event.preventDefault();
+  homePage.container.classList.add("off");
+  imageAndForm.container.classList.remove("off");
+  document.querySelector(".h2").innerText = "Menu";
+};
+
+/* Funciones de la calculadora */
 calculator.container.querySelector(".input-bench-press").onclick = function (
   event
 ) {
   event.preventDefault();
-  console.log("funciono");
   calculator.container.querySelector(".result-1").innerText =
-    Number(calculator.container.querySelector("kg-bench-press").value) /
+    Number(calculator.container.querySelector(".kg-bench-press").value) /
     (1.0278 -
       0.0278 *
-        Number(calculator.container.querySelector("reps-bench-press").value));
+        Number(calculator.container.querySelector(".reps-bench-press").value));
 };
 
-/*MENSAJE DE ERROR DE CREATE-ACCOUNT, NO FUNCIONA*/
-/* document.querySelector("input-create-account").onclick = function (event) {
+calculator.container.querySelector(".input-pull-up").onclick = function (
+  event
+) {
   event.preventDefault();
-  if (
-    document.querySelector(".name").value === "" ||
-    document.querySelector(".last-name").value === "" ||
-    document.querySelector(".input-e-mail").value === "" ||
-    document.querySelector(".input-password").value === "" ||
-    document.querySelector(".confirm-password").value === ""
-  ) {
-    document.querySelector(".mensaje").innerText = "Campo incompleto";
-    loginPage.container.querySelector(".mensaje").style.display = "block";
-  } else if (
-    document.querySelector(".password").value !=
-    document.querySelector(".confirm-password").value
-  ) {
-    document.querySelector(".mensaje").innerText = "Contraseña diferente";
-  }
-}; */
-
-/*FUNCIONES DE LA CALCULADORA*/
-/* document.querySelector("input-bench-press").onclick = function () {
-  document.querySelector("result-1").innerText =
-    Number(document.querySelector("kg-bench-press").value) /
-    (1.0278 -
-      0.0278 * Number(document.querySelector("reps-bench-press").value));
+  console.log("funciono");
+  calculator.container.querySelector(".result-2").innerText =
+    (Number(document.querySelector(".kg-pull-up").value) +
+      Number(document.querySelector(".bodyweight").value)) /
+      (1.0278 -
+        0.0278 * Number(document.querySelector(".reps-pull-up").value)) -
+    Number(document.querySelector(".bodyweight").value);
 };
-
-document.querySelector("input-pull-up").onclick = function () {
-  document.querySelector("result-2").innerText =
-    (Number(document.querySelector("kilos-2").value) +
-      Number(document.querySelector("Bodyweight").value)) /
-      (1.0278 - 0.0278 * Number(document.querySelector("reps-2").value)) -
-    Number(document.querySelector("Bodyweight").value);
-}; */
