@@ -1,6 +1,4 @@
-import { users, findUserByEmail } from './data.js'
-
-export function authenticateUser(email, password) {
+function authenticateUser(email, password) {
     if (typeof email !== 'string') throw new Error('email is not a string')
     if (!email) throw new Error('email is empty')
     if (typeof password !== 'string') throw new Error('password is not a string')
@@ -16,7 +14,7 @@ export function authenticateUser(email, password) {
     }
 }
 
-export function registerUser(name, email, password) {
+function registerUser(name, email, password) {
     if (typeof name !== 'string') throw new Error('name is not a string')
     if (!name) throw new Error('name is empty')
     if (typeof email !== 'string') throw new Error('email is not a string')
@@ -38,7 +36,7 @@ export function registerUser(name, email, password) {
     users.push(user)
 }
 
-export function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
+function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
     if (typeof email !== 'string') throw new Error('email is not a string')
     if (!email) throw new Error('email is empty')
     if (typeof password !== 'string') throw new Error('password is not a string')

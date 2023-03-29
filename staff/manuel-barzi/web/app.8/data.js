@@ -1,4 +1,4 @@
-export var users = []
+var users = []
 
 var user = {
     name: 'Pepito Grillo',
@@ -24,7 +24,7 @@ var user = {
 
 users.push(user)
 
-export function findUserByEmail(email) {
+function findUserByEmail(email) {
     var foundUser
 
     for (var i = 0; i < users.length; i++) {

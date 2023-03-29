@@ -1,5 +1,3 @@
-import { authenticateUser, registerUser, updateUserPassword } from './logic.js'
-
 var authenticatedEmail
 
 var loginPage = document.querySelector('.login')
