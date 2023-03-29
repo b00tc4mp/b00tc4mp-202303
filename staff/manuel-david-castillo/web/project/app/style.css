@@ -311,7 +311,6 @@ a {
   border: solid 5px grey;
   display: flex;
   flex-direction: column;
-  margin-left: 50px;
 }
 
 .h3 {
@@ -367,6 +366,23 @@ a {
   margin-bottom: 10px;
 }
 
+.update-rm-bench-press {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: solid 2px grey;
+}
+
+.update-rm-pull-up {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .profile {
   width: 400px;
   border: solid 5px grey;
@@ -420,11 +436,30 @@ a {
 .div-yes-no {
   display: flex;
   justify-content: space-around;
+  width: 120px;
 }
 
 .div-change-password {
   background-color: black;
   border-top: solid gray 2px;
+}
+
+.input-current-password {
+  width: 100px;
+}
+
+.input-new-password {
+  width: 100px;
+}
+
+.input-confirm-new-password {
+  width: 100px;
+}
+
+.div-update-password {
+  display: flex;
+  justify-content: space-around;
+  width: 220px;
 }
 
 .off {

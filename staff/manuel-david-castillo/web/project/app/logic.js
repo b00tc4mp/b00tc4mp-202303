@@ -40,3 +40,34 @@ function register(name, email, password, confirmPassword) {
 
   accounts.push = user;
 }
+
+function updatePassword(currentPassword, newPassword, confirmNewPassword) {
+  if (typeof currentPassword !== "string")
+    throw new Error("Current password is not a string");
+  if (!currentPassword) throw new Error("Current password is empty");
+  if (typeof newPassword !== "string")
+    throw new Error("New password is not a string");
+  if (!newPassword) throw new Error("New password is empty");
+  if (typeof confirmNewPassword !== "string")
+    throw new Error("Confirm new password is not a string");
+  if (!confirmNewPassword) throw new Error("Confirm new password is empty");
+
+  if (accounts[id].password !== currentPassword)
+    throw new Error("Wrong current password");
+  if (newPassword !== confirmNewPassword)
+    throw new Error("Different passwords");
+
+  accounts[id].password = newPassword;
+}
+
+function rmBenchPress(kg, reps) {
+  let result = kg / (1.0278 - 0.0278 * reps);
+  let wholeResult = result.toFixed();
+  return wholeResult;
+}
+
+function rmPullUp(kg, reps, bodyweight) {
+  let result = (kg + bodyweight) / (1.0278 - 0.0278 * reps) - bodyweight;
+  let wholeResult = result.toFixed();
+  return wholeResult;
+}

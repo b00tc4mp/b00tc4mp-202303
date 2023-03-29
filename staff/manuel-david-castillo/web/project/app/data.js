@@ -10,15 +10,6 @@ const accounts = [
     rmPullUp: "60",
   },
   {
-    name: "Nico",
-    email: "nico@gmail.com",
-    password: "nico123",
-    bodyweight: "",
-    height: "",
-    rmBenchPress: "",
-    rmPullUp: "",
-  },
-  {
     name: "Manuel Barzi",
     email: "manuelbarzi@gmail.com",
     password: "barzi123",

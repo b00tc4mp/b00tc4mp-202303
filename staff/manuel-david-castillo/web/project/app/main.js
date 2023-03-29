@@ -139,22 +139,80 @@ homePage.querySelector(".index-sing-out").onclick = function (event) {
 /* Funciones de la calculadora */
 calculatorPanel.querySelector(".input-bench-press").onclick = function (event) {
   event.preventDefault();
-  calculatorPanel.querySelector(".result-1").innerText =
-    Number(calculatorPanel.querySelector(".kg-bench-press").value) /
-    (1.0278 -
-      0.0278 *
-        Number(calculatorPanel.querySelector(".reps-bench-press").value));
+  let kg = Number(calculatorPanel.querySelector(".kg-bench-press").value);
+  let reps = Number(calculatorPanel.querySelector(".reps-bench-press").value);
+
+  calculatorPanel.querySelector(".result-1").innerText = rmBenchPress(kg, reps);
+
+  if (rmBenchPress(kg, reps) > accounts[id].rmBenchPress) {
+    console.log("nuevo rm");
+    calculatorPanel
+      .querySelector(".update-rm-bench-press")
+      .classList.remove("off");
+  }
+};
+
+calculatorPanel.querySelector(".yes-update-benchpress").onclick = function (
+  event
+) {
+  event.preventDefault();
+  let kg = Number(calculatorPanel.querySelector(".kg-bench-press").value);
+  let reps = Number(calculatorPanel.querySelector(".reps-bench-press").value);
+
+  accounts[id].rmBenchPress = rmBenchPress(kg, reps);
+  profilePanel.querySelector(".p-rm-benchpress").value = rmBenchPress(kg, reps);
+  alert("RM bench press update");
+
+  calculatorPanel.querySelector(".update-rm-bench-press").classList.add("off");
 };
 
 calculatorPanel.querySelector(".input-pull-up").onclick = function (event) {
   event.preventDefault();
-  console.log("funciono");
-  calculatorPanel.querySelector(".result-2").innerText =
-    (Number(document.querySelector(".kg-pull-up").value) +
-      Number(document.querySelector(".bodyweight").value)) /
-      (1.0278 -
-        0.0278 * Number(document.querySelector(".reps-pull-up").value)) -
-    Number(document.querySelector(".bodyweight").value);
+  let kg = Number(document.querySelector(".kg-pull-up").value);
+  let reps = Number(document.querySelector(".reps-pull-up").value);
+  let bodyweight = Number(document.querySelector(".bodyweight").value);
+
+  calculatorPanel.querySelector(".result-2").innerText = rmPullUp(
+    kg,
+    reps,
+    bodyweight
+  );
+
+  if (
+    parseInt(rmPullUp(kg, reps, bodyweight)) > parseInt(accounts[id].rmPullUp)
+  ) {
+    console.log("nuevo rm");
+    calculatorPanel.querySelector(".update-rm-pull-up").classList.remove("off");
+  }
+};
+
+calculatorPanel.querySelector(".yes-update-pullup").onclick = function (event) {
+  event.preventDefault();
+  let kg = Number(document.querySelector(".kg-pull-up").value);
+  let reps = Number(document.querySelector(".reps-pull-up").value);
+  let bodyweight = Number(document.querySelector(".bodyweight").value);
+
+  accounts[id].rmPullUp = rmPullUp(kg, reps, bodyweight);
+  profilePanel.querySelector(".p-rm-pull-up").value = rmPullUp(
+    kg,
+    reps,
+    bodyweight
+  );
+  alert("RM pull up update");
+
+  calculatorPanel.querySelector(".update-rm-pull-up").classList.add("off");
+};
+
+calculatorPanel.querySelector(".no-update").onclick = function (event) {
+  event.preventDefault();
+
+  calculatorPanel.querySelector(".update-rm-bench-press").classList.add("off");
+};
+
+calculatorPanel.querySelector(".no-update-2").onclick = function (event) {
+  event.preventDefault();
+
+  calculatorPanel.querySelector(".update-rm-pull-up").classList.add("off");
 };
 
 /* Funciones de profile */
@@ -198,7 +256,6 @@ profilePanel.querySelector(".delete-all").onclick = function (event) {
 
 profilePanel.querySelector(".yes-delete-all").onclick = function (event) {
   event.preventDefault();
-  console.log("yes");
 
   accounts[id].bodyweight = "";
   accounts[id].height = "";
@@ -213,4 +270,58 @@ profilePanel.querySelector(".yes-delete-all").onclick = function (event) {
   profilePanel.querySelector(".message-delete-all").classList.add("off");
   profilePanel.querySelector(".change-user-data").classList.remove("off");
   profilePanel.querySelector(".delete-all").classList.remove("off");
+};
+
+profilePanel.querySelector(".no-delete-all").onclick = function (event) {
+  event.preventDefault();
+
+  profilePanel.querySelector(".message-delete-all").classList.add("off");
+  profilePanel.querySelector(".change-user-data").classList.remove("off");
+  profilePanel.querySelector(".delete-all").classList.remove("off");
+};
+
+profilePanel.querySelector(".change-password").onclick = function (event) {
+  event.preventDefault();
+
+  profilePanel.querySelector(".user-data").classList.add("off");
+  profilePanel.querySelector(".div-change-password").classList.remove("off");
+  profilePanel.querySelector(".change-password").classList.add("off");
+  profilePanel.querySelector(".update-password").classList.remove("off");
+  profilePanel.querySelector(".update-password-back").classList.remove("off");
+};
+
+profilePanel.querySelector(".update-password-back").onclick = function (event) {
+  event.preventDefault();
+
+  profilePanel.querySelector(".user-data").classList.remove("off");
+  profilePanel.querySelector(".div-change-password").classList.add("off");
+  profilePanel.querySelector(".change-password").classList.remove("off");
+  profilePanel.querySelector(".update-password").classList.add("off");
+  profilePanel.querySelector(".update-password-back").classList.add("off");
+};
+
+profilePanel.querySelector(".update-password").onclick = function (event) {
+  event.preventDefault();
+
+  let currentPassword = profilePanel.querySelector(
+    ".input-current-password"
+  ).value;
+  let newPassword = profilePanel.querySelector(".input-new-password").value;
+  let confirmNewPassword = profilePanel.querySelector(
+    ".input-confirm-new-password"
+  ).value;
+
+  try {
+    updatePassword(currentPassword, newPassword, confirmNewPassword);
+
+    alert("password changed successfully");
+
+    profilePanel.querySelector(".user-data").classList.remove("off");
+    profilePanel.querySelector(".div-change-password").classList.add("off");
+    profilePanel.querySelector(".change-password").classList.remove("off");
+    profilePanel.querySelector(".update-password").classList.add("off");
+    profilePanel.querySelector(".update-password-back").classList.add("off");
+  } catch (error) {
+    alert(error.message);
+  }
 };
