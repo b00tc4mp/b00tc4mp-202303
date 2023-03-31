@@ -1,4 +1,4 @@
-export function login(email, password) {
+function login(email, password) {
   if (typeof email !== "string") throw new Error("the email is not a string");
   if (!email) throw new Error("email is empty");
   if (typeof password !== "string")
@@ -11,7 +11,7 @@ export function login(email, password) {
   if (foundUser.password !== password) throw new Error("wrong password");
 }
 
-export function register(name, email, password, confirmPassword) {
+function register(name, email, password, confirmPassword) {
   if (typeof name !== "string") throw new Error("the name is not a string");
   if (!name) throw new Error("name is empty");
   if (typeof email !== "string") throw new Error("the email is not a string");
@@ -41,11 +41,7 @@ export function register(name, email, password, confirmPassword) {
   accounts.push = user;
 }
 
-export function updatePassword(
-  currentPassword,
-  newPassword,
-  confirmNewPassword
-) {
+function updatePassword(currentPassword, newPassword, confirmNewPassword) {
   if (typeof currentPassword !== "string")
     throw new Error("Current password is not a string");
   if (!currentPassword) throw new Error("Current password is empty");
@@ -64,13 +60,13 @@ export function updatePassword(
   accounts[id].password = newPassword;
 }
 
-export function rmBenchPress(kg, reps) {
+function rmBenchPress(kg, reps) {
   let result = kg / (1.0278 - 0.0278 * reps);
   let wholeResult = result.toFixed();
   return wholeResult;
 }
 
-export function rmPullUp(kg, reps, bodyweight) {
+function rmPullUp(kg, reps, bodyweight) {
   let result = (kg + bodyweight) / (1.0278 - 0.0278 * reps) - bodyweight;
   let wholeResult = result.toFixed();
   return wholeResult;

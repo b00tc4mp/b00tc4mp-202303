@@ -1,11 +1,3 @@
-import {
-  login,
-  register,
-  updatePassword,
-  rmBenchPress,
-  rmPullUp,
-} from "./logic";
-
 /* Partes de la web */
 let id;
 let email;
