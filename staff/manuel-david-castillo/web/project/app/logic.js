@@ -1,3 +1,5 @@
+import { searchId, accounts, id } from "./data";
+
 export function login(email, password) {
   if (typeof email !== "string") throw new Error("the email is not a string");
   if (!email) throw new Error("email is empty");
@@ -27,18 +29,6 @@ export function register(name, email, password, confirmPassword) {
 
   if (foundUser) throw new Error("users already exists");
   if (password !== confirmPassword) throw new Error("different password");
-
-  var user = {
-    name: name,
-    email: email,
-    password: password,
-    bodyweight: "",
-    height: "",
-    rmBenchPress: "",
-    rmPullUp: "",
-  };
-
-  accounts.push = user;
 }
 
 export function updatePassword(

@@ -1,5 +1,5 @@
 /* Perfiles de la app */
-const accounts = [
+export let accounts = [
   {
     name: "ManuelDa",
     email: "manuelda27999@gmail.com",
@@ -38,12 +38,28 @@ const accounts = [
   },
 ];
 
-function searchId(email) {
-  for (i = 0; i < accounts.length; i++) {
+export let id;
+
+export function searchId(email) {
+  for (let i = 0; i < accounts.length; i++) {
     if (accounts[i].email === email) {
       id = i;
 
       return id;
     }
   }
+}
+
+export function newUser(name, email, password); {
+  let user = {
+  name: name, 
+  email: email,
+  password: password,
+  bodyweight: "",
+  height: "",
+  rmBenchPress: "",
+  rmPullUp: "",
+};
+
+accounts.push = user;
 }

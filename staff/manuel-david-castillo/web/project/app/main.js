@@ -6,10 +6,9 @@ import {
   rmPullUp,
 } from "./logic";
 
+import { accounts, id, newUser } from "./data";
+
 /* Partes de la web */
-let id;
-let email;
-let password;
 
 let loginPanel = document.querySelector(".log-in-form");
 let loginForm = loginPanel.querySelector("form");
@@ -76,6 +75,7 @@ registerForm.onsubmit = function (event) {
 
   try {
     register(name, email, password, confirmPassword);
+    newUser(name, email, password);
     alert("user successfully registered");
 
     registerPanel.classList.add("off");
@@ -231,7 +231,7 @@ profilePanel.querySelector(".change-user-data").onclick = function (event) {
   profilePanel.querySelector(".save-changes").classList.remove("off");
   profilePanel.querySelector(".delete-all").classList.add("off");
 
-  for (i = 0; i < accounts.length; i++) {
+  for (let i = 0; i < accounts.length; i++) {
     profilePanel.querySelectorAll("input")[i].readOnly = false;
   }
 };
@@ -249,7 +249,7 @@ profilePanel.querySelector(".save-changes").onclick = function (event) {
     profilePanel.querySelector(".p-rm-benchpress").value;
   accounts[id].rmPullUp = profilePanel.querySelector(".p-rm-pull-up").value;
 
-  for (i = 0; i < accounts.length; i++) {
+  for (let i = 0; i < accounts.length; i++) {
     profilePanel.querySelectorAll("input")[i].readOnly = true;
   }
 };
