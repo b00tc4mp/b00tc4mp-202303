@@ -1,0 +1,67 @@
+import { searchId, accounts, id, Account } from "./data";
+
+export function login(email: string, password: string) {
+  if (typeof email !== "string") throw new Error("the email is not a string");
+  if (!email) throw new Error("email is empty");
+  if (typeof password !== "string")
+    throw new Error("the password is not a string");
+  if (!password) throw new Error("password is empty");
+
+  var foundUser: Account | null = accounts[searchId(email)!];
+
+  if (!foundUser) throw new Error("user not found");
+  if (foundUser.password !== password) throw new Error("wrong password");
+}
+
+export function register(name: string, email: string, password: string, confirmPassword: string) {
+  if (typeof name !== "string") throw new Error("the name is not a string");
+  if (!name) throw new Error("name is empty");
+  if (typeof email !== "string") throw new Error("the email is not a string");
+  if (!email) throw new Error("email is empty");
+  if (typeof password !== "string")
+    throw new Error("the password is not a string");
+  if (!password) throw new Error("password is empty");
+  if (typeof confirmPassword !== "string")
+    throw new Error("the confirm password is not a string");
+  if (!confirmPassword) throw new Error("confirm password is empty");
+
+  var foundUser: Account | null = accounts[searchId(email)!];
+
+  if (foundUser) throw new Error("users already exists");
+  if (password !== confirmPassword) throw new Error("different password");
+}
+
+export function updatePassword(
+  currentPassword: string,
+  newPassword: string,
+  confirmNewPassword: string
+) {
+  if (typeof currentPassword !== "string")
+    throw new Error("Current password is not a string");
+  if (!currentPassword) throw new Error("Current password is empty");
+  if (typeof newPassword !== "string")
+    throw new Error("New password is not a string");
+  if (!newPassword) throw new Error("New password is empty");
+  if (typeof confirmNewPassword !== "string")
+    throw new Error("Confirm new password is not a string");
+  if (!confirmNewPassword) throw new Error("Confirm new password is empty");
+
+  if (accounts[id].password !== currentPassword)
+    throw new Error("Wrong current password");
+  if (newPassword !== confirmNewPassword)
+    throw new Error("Different passwords");
+
+  accounts[id].password = newPassword;
+}
+
+export function rmBenchPress(kg: number, reps: number) {
+  let result = kg / (1.0278 - 0.0278 * reps);
+  let wholeResult = result.toFixed();
+  return wholeResult;
+}
+
+export function rmPullUp(kg: number, reps: number, bodyweight: number) {
+  let result = (kg + bodyweight) / (1.0278 - 0.0278 * reps) - bodyweight;
+  let wholeResult = result.toFixed();
+  return wholeResult;
+}

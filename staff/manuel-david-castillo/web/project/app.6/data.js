@@ -50,16 +50,16 @@ export function searchId(email) {
   }
 }
 
-export function newUser(name, email, password); {
+export function newUser(name, email, password) {
   let user = {
-  name: name, 
-  email: email,
-  password: password,
-  bodyweight: "",
-  height: "",
-  rmBenchPress: "",
-  rmPullUp: "",
-};
+    name: name,
+    email: email,
+    password: password,
+    bodyweight: "",
+    height: "",
+    rmBenchPress: "",
+    rmPullUp: "",
+  };
 
-accounts.push = user;
+  accounts.push(user);
 }
