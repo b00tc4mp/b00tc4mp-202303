@@ -13,7 +13,7 @@
 </head>
 
 <body class="body">
-    <div class="login page off">
+    <div class="login page">
         <h1>login</h1>
 
         <form class="form">
@@ -40,32 +40,16 @@
         <p>Go to <a href="">login</a></p>
     </div>
 
-    <div class="home page _off">
-        <header class="home-header">
-            <h1 class="home-title">hola home!</h1>
+    <div class="home page off">
+        <h1>hola home!</h1>
 
-            <nav>
-                <a href="" class="nav-profile nav-link">Profile</a>
-            </nav>
-        </header>
+        <form class="form">
+            <input class="input" type="password" name="password" placeholder="password">
+            <input class="input" type="password" name="newPassword" placeholder="newPassword">
+            <input class="input" type="password" name="newPasswordConfirm" placeholder="newPasswordConfirm">
 
-        <div class="post-list">
-            <!-- TODO show posts here with ul and li -->
-        </div>
-
-        <div class="profile off">
-            <form class="form">
-                <input class="input" type="password" name="password" placeholder="password">
-                <input class="input" type="password" name="newPassword" placeholder="newPassword">
-                <input class="input" type="password" name="newPasswordConfirm" placeholder="newPasswordConfirm">
-
-                <button class="button">Update password</button>
-            </form>
-        </div>
-
-        <footer class="home-footer">
-            <button>+</button>
-        </footer>
+            <button class="button">Update password</button>
+        </form>
     </div>
 
     <script type="module" src="src/data.ts"></script>

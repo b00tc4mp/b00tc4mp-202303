@@ -1,38 +1,38 @@
 import { authenticateUser, registerUser, updateUserPassword } from './logic.js'
 
-let authenticatedId: string
+let authenticatedEmail: string | undefined
 
-const loginPage: HTMLDivElement = document.querySelector<HTMLDivElement>('.login')!
-const loginForm: HTMLFormElement = loginPage.querySelector<HTMLFormElement>('form')!
-const registerPage: HTMLDivElement = document.querySelector<HTMLDivElement>('.register')!
-const registerForm: HTMLFormElement = registerPage.querySelector<HTMLFormElement>('form')!
-const homePage: HTMLDivElement = document.querySelector<HTMLDivElement>('.home')!
-const profileLink: HTMLAnchorElement = homePage.querySelector<HTMLAnchorElement>('.nav-profile')!
-const profilePanel: HTMLDivElement = homePage.querySelector<HTMLDivElement>('.profile')!
-const updatePasswordForm: HTMLFormElement = profilePanel.querySelector<HTMLFormElement>('form')!
+const loginPage: Element = document.querySelector('.login')!
+const loginForm: HTMLFormElement = loginPage.querySelector('form')!
+const registerPage: Element = document.querySelector('.register')!
+const registerForm: HTMLFormElement = registerPage.querySelector('form')!
+const homePage: Element = document.querySelector('.home')!
+const updatePasswordForm: HTMLFormElement = homePage.querySelector('form')!
 
-loginPage.querySelector('a')!.onclick = function (event: Event) {
+loginPage.querySelector('a')!.onclick = function (event) {
     event.preventDefault()
 
     loginPage.classList.add('off')
     registerPage.classList.remove('off')
 }
 
-registerPage.querySelector('a')!.onclick = function (event: Event) {
+registerPage.querySelector('a')!.onclick = function (event) {
     event.preventDefault()
 
     registerPage.classList.add('off')
     loginPage.classList.remove('off')
 }
 
-loginForm.onsubmit = function (event: Event) {
+loginForm.onsubmit = function (event) {
     event.preventDefault()
 
     const email: string = loginForm.querySelector<HTMLInputElement>('input[name=email]')!.value
     const password: string = loginForm.querySelector<HTMLInputElement>('input[name=password]')!.value
 
     try {
-        authenticatedId = authenticateUser(email, password)
+        authenticateUser(email, password)
+
+        authenticatedEmail = email
 
         loginForm.reset()
 
@@ -43,7 +43,7 @@ loginForm.onsubmit = function (event: Event) {
     }
 }
 
-registerForm.onsubmit = function (event: Event) {
+registerForm.onsubmit = function (event) {
     event.preventDefault()
 
     const name: string = registerForm.querySelector<HTMLInputElement>('input[name=name]')!.value
@@ -62,13 +62,7 @@ registerForm.onsubmit = function (event: Event) {
     }
 }
 
-profileLink.onclick = function (event: Event) {
-    event.preventDefault()
-
-    profilePanel.classList.remove('off')
-}
-
-updatePasswordForm.onsubmit = function (event: Event) {
+updatePasswordForm.onsubmit = function (event) {
     event.preventDefault()
 
     const password: string = updatePasswordForm.querySelector<HTMLInputElement>('input[name=password]')!.value
@@ -76,7 +70,7 @@ updatePasswordForm.onsubmit = function (event: Event) {
     const newPasswordConfirm: string = updatePasswordForm.querySelector<HTMLInputElement>('input[name=newPasswordConfirm]')!.value
 
     try {
-        updateUserPassword(authenticatedId, password, newPassword, newPasswordConfirm)
+        updateUserPassword(authenticatedEmail!, password, newPassword, newPasswordConfirm)
 
         alert('password updated')
 

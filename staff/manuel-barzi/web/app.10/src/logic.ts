@@ -1,6 +1,6 @@
-import { users, posts, findUserByEmail, findUserById, User, Post } from './data.js'
+import { users, findUserByEmail, User } from './data.js'
 
-export function authenticateUser(email: string, password: string): string {
+export function authenticateUser(email: string, password: string) {
     if (typeof email !== 'string') throw new Error('email is not a string')
     if (!email) throw new Error('email is empty')
     if (typeof password !== 'string') throw new Error('password is not a string')
@@ -14,8 +14,6 @@ export function authenticateUser(email: string, password: string): string {
     if (foundUser.password !== password) {
         throw new Error('wrong password')
     }
-
-    return foundUser.id
 }
 
 export function registerUser(name: string, email: string, password: string) {
@@ -31,29 +29,18 @@ export function registerUser(name: string, email: string, password: string) {
     if (foundUser)
         throw new Error('user already exists')
 
-    let id: string
-
-    const lastUser = users[users.length - 1]
-
-    if (lastUser) {
-        const count = parseInt(lastUser.id.slice(5))
-
-        id = `user-${count + 1}`
-    } else id = 'user-1'
-
     const user: User = {
-        id,
-        name,
-        email,
-        password
+        name: name,
+        email: email,
+        password: password
     }
 
     users.push(user)
 }
 
-export function updateUserPassword(id: string, password: string, newPassword: string, newPasswordConfirm: string) {
-    if (typeof id !== 'string') throw new Error('id is not a string')
-    if (!id) throw new Error('id is empty')
+export function updateUserPassword(email: string, password: string, newPassword: string, newPasswordConfirm: string) {
+    if (typeof email !== 'string') throw new Error('email is not a string')
+    if (!email) throw new Error('email is empty')
     if (typeof password !== 'string') throw new Error('password is not a string')
     if (!password) throw new Error('password is empty')
     if (typeof newPassword !== 'string') throw new Error('newPassword is not a string')
@@ -61,7 +48,7 @@ export function updateUserPassword(id: string, password: string, newPassword: st
     if (typeof newPasswordConfirm !== 'string') throw new Error('newPasswordConfirm is not a string')
     if (!newPasswordConfirm) throw new Error('newPasswordConfirm is empty')
 
-    const foundUser: User | null = findUserById(id)
+    const foundUser: User | null  = findUserByEmail(email)
 
     if (!foundUser)
         throw new Error('user not found')
@@ -73,29 +60,4 @@ export function updateUserPassword(id: string, password: string, newPassword: st
         throw new Error('password mismatch')
 
     foundUser.password = newPassword
-}
-
-export function createPost(userId: string, text: string) {
-    let id: string
-
-    const lastPost = posts[posts.length - 1]
-
-    if (lastPost) {
-        const count = parseInt(lastPost.id.slice(5))
-
-        id = `post-${count + 1}`
-    } else id = 'post-1'
-
-    const post: Post = {
-        id,
-        user: userId,
-        text,
-        date: new Date()
-    }
-
-    posts.push(post)
-}
-
-export function retrievePosts() {
-    // Get all posts and return them
 }

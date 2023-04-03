@@ -10,6 +10,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 50%;
     box-sizing: border-box;
     border-radius: 10px;
     align-items: center;
@@ -33,42 +34,10 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    /* justify-content: center; */
 }
 
 .off {
     display: none;
-}
-
-/* components */
-
-.home-header {
-    background-color: black;
-    height: 4rem;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.home-title {
-    color: white;
-}
-
-.nav-link {
-    color: white;
-}
-
-.home-footer {
-    background-color: black;
-    height: 4rem;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
