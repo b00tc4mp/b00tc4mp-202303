@@ -1,6 +1,6 @@
-import { authenticateUser, registerUser, updateUserPassword } from './logic.js'
+import { authenticateUser, registerUser, updateUserPassword, retrievePosts, createPost } from './logic.js'
 
-let authenticatedId: string
+let authenticatedUserId: string
 
 const loginPage: HTMLDivElement = document.querySelector<HTMLDivElement>('.login')!
 const loginForm: HTMLFormElement = loginPage.querySelector<HTMLFormElement>('form')!
@@ -8,8 +8,12 @@ const registerPage: HTMLDivElement = document.querySelector<HTMLDivElement>('.re
 const registerForm: HTMLFormElement = registerPage.querySelector<HTMLFormElement>('form')!
 const homePage: HTMLDivElement = document.querySelector<HTMLDivElement>('.home')!
 const profileLink: HTMLAnchorElement = homePage.querySelector<HTMLAnchorElement>('.nav-profile')!
+const postList: HTMLDivElement = homePage.querySelector<HTMLDivElement>('.post-list')!
 const profilePanel: HTMLDivElement = homePage.querySelector<HTMLDivElement>('.profile')!
 const updatePasswordForm: HTMLFormElement = profilePanel.querySelector<HTMLFormElement>('form')!
+const createPostButton: HTMLButtonElement = homePage.querySelector<HTMLButtonElement>('.create-post-button')!
+const createPostPanel: HTMLDivElement = homePage.querySelector<HTMLDivElement>('.create-post')!
+const createPostForm = createPostPanel.querySelector<HTMLFormElement>('form')!
 
 loginPage.querySelector('a')!.onclick = function (event: Event) {
     event.preventDefault()
@@ -32,12 +36,14 @@ loginForm.onsubmit = function (event: Event) {
     const password: string = loginForm.querySelector<HTMLInputElement>('input[name=password]')!.value
 
     try {
-        authenticatedId = authenticateUser(email, password)
+        authenticatedUserId = authenticateUser(email, password)
 
         loginForm.reset()
 
         loginPage.classList.add('off')
         homePage.classList.remove('off')
+
+        renderPosts()
     } catch (error: any) {
         alert(error.message)
     }
@@ -76,12 +82,68 @@ updatePasswordForm.onsubmit = function (event: Event) {
     const newPasswordConfirm: string = updatePasswordForm.querySelector<HTMLInputElement>('input[name=newPasswordConfirm]')!.value
 
     try {
-        updateUserPassword(authenticatedId, password, newPassword, newPasswordConfirm)
+        updateUserPassword(authenticatedUserId, password, newPassword, newPasswordConfirm)
 
         alert('password updated')
 
         updatePasswordForm.reset()
     } catch (error: any) {
+        alert(error.message)
+    }
+}
+
+function renderPosts() {
+    try {
+        const posts = retrievePosts()
+
+        postList.innerHTML = ''
+
+        const ul: HTMLUListElement = document.createElement('ul')
+
+        posts.forEach(post => {
+            const li: HTMLLIElement = document.createElement('li')
+
+            const postId: HTMLParagraphElement = document.createElement('p')
+            postId.innerText = post.id
+            li.appendChild(postId)
+
+            const userId: HTMLParagraphElement = document.createElement('p')
+            userId.innerText = post.user
+            li.appendChild(userId)
+
+            const text: HTMLParagraphElement = document.createElement('p')
+            text.innerText = post.text
+            li.appendChild(text)
+
+            const date: HTMLParagraphElement = document.createElement('p')
+            date.innerText = post.date.toISOString() // 2023-04-05 22:53
+            li.appendChild(date)
+
+            ul.appendChild(li)
+        })
+
+        postList.appendChild(ul)
+    } catch (error: any) {
+        alert(error.message)
+    }
+}
+
+createPostButton.onclick = () => {
+    createPostPanel.classList.remove('off')
+}
+
+createPostForm.onsubmit = event => {
+    event.preventDefault()
+
+    const text = createPostForm.text.value
+
+    try {
+        createPost(authenticatedUserId, text)
+
+        createPostPanel.classList.add('off')
+
+        renderPosts()
+    } catch(error: any) {
         alert(error.message)
     }
 }

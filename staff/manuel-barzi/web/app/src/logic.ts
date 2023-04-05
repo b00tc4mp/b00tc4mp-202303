@@ -1,4 +1,4 @@
-import { users, posts, findUserByEmail, findUserById, User, Post } from './data.js'
+import { users, posts, User, Post } from './data.js'
 
 export function authenticateUser(email: string, password: string): string {
     if (typeof email !== 'string') throw new Error('email is not a string')
@@ -97,5 +97,29 @@ export function createPost(userId: string, text: string) {
 }
 
 export function retrievePosts() {
-    // Get all posts and return them
+    return posts
+}
+
+// helpers
+
+function findUserByEmail(email: string): User | null {
+    for (var i = 0; i < users.length; i++) {
+        var user = users[i]
+
+        if (user.email === email)
+            return user
+    }
+
+    return null
+}
+
+function findUserById(id: string): User | null {
+    for (var i = 0; i < users.length; i++) {
+        var user = users[i]
+
+        if (user.id === id)
+            return user
+    }
+
+    return null
 }

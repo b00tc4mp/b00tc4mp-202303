@@ -1,3 +1,8 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
 .body {
     display: flex;
     flex-direction: column;
@@ -38,10 +43,14 @@
 }
 
 .off {
-    display: none;
+    display: none !important;
 }
 
 /* components */
+
+.home {
+    margin-top: 4rem;
+}
 
 .home-header {
     background-color: black;
@@ -71,4 +80,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.create-post {
+    position: absolute;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.create-post-body {
+    background-color: white;
+    padding: 1rem;
+}
+
+.create-post-form {
+    display: flex;
+    flex-direction: column;
 }

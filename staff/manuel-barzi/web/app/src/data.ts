@@ -68,25 +68,3 @@ const post3: Post = {
 }
 
 posts.push(post3)
-
-export function findUserByEmail(email: string): User | null {
-    for (var i = 0; i < users.length; i++) {
-        var user = users[i]
-
-        if (user.email === email)
-            return user
-    }
-
-    return null
-}
-
-export function findUserById(id: string): User | null {
-    for (var i = 0; i < users.length; i++) {
-        var user = users[i]
-
-        if (user.id === id)
-            return user
-    }
-
-    return null
-}
