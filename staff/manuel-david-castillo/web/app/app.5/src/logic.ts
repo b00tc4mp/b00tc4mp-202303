@@ -1,4 +1,4 @@
-import { findUserByEmail, users, User, findUserById, posts, Post, findPostById } from "./data";
+import { findUserByEmail, users, User, findUserById } from "./data";
 
 export function authenticateUser(email: string, password: string): string {
   if (typeof email !== "string") throw new Error("email is not a string");
@@ -78,46 +78,4 @@ export function updateUserPassword(
     throw new Error("different password");
 
   foundUser!.password = newPassword;
-}
-
-export function giveMeThePosts() {
-  return posts
-}
-
-export function removePost(postId: string) {
-  if (typeof postId !== "string") throw new Error("postId is not a string");
-  if (!postId) throw new Error("empty postId")
-
-  const postIndex = posts.findIndex(post => post.id === postId) /* Enfasis en los arrays */
-
-  if (postIndex < 0) throw new Error(`post with id ${postId} not found`)
-
-  posts.splice(postIndex, 1)
-}
-
-
-export function createPost(userId: string, text: string) {
-  if (typeof text !== "string") throw new Error("userId is not a string");
-  if (!text) throw new Error("empty text")
-
-  let id: string;
-
-  const lastPost = posts[posts.length - 1];
-
-  if (lastPost) {
-    const count = parseInt(lastPost.id.slice(5))
-
-    id = "post-" + String(count + 1)
-  } else {
-    id = "post-1"
-  }
-
-  const post: Post = {
-    id: id,
-    user: userId,
-    text: text,
-    date: new Date()
-  }
-
-  posts.push(post)
 }

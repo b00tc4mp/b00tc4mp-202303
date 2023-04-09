@@ -103,15 +103,3 @@ export function findUserById(id: String | null): User | null {
   }
   return null;
 }
-
-export function findPostById(postId: String): Post | null {
-  for (var i = 0; i < users.length; i++) {
-    let post = posts[i];
-
-    if (post.id === postId) {
-      return post;
-    }
-  }
-
-  return null
-}

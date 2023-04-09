@@ -1,4 +1,4 @@
-import { authenticateUser, registerUser, updateUserPassword, createPost, giveMeThePosts, removePost } from "./logic";
+import { authenticateUser, registerUser, updateUserPassword, retrievePosts, createPost } from "./logic";
 import { findUserById } from "./data";
 
 let id: string;
@@ -9,8 +9,8 @@ const registerPage: HTMLDivElement = document.querySelector(".register")!;
 const registerForm: HTMLFormElement = registerPage.querySelector("form")!;
 const homePage: HTMLDivElement = document.querySelector(".home")!;
 const homeForm: HTMLFormElement = homePage.querySelector("form")!;
-const homePosts: HTMLDivElement = homePage.querySelector(".home-posts")!;
-const containerPosts: HTMLDivElement = homePosts.querySelector(".posts")!;
+export const homePosts: HTMLDivElement = homePage.querySelector(".home-posts")!;
+export const containerPost: HTMLDivElement = homePosts.querySelector(".posts")!;
 const containerNewPost: HTMLDivElement = homePage.querySelector(".new-post")!;
 const postForm: HTMLFormElement = homePage.querySelector(".form-post")!;
 
@@ -95,82 +95,6 @@ homePage.querySelector<HTMLAnchorElement>(".a-profile")!.onclick = function (eve
   homeForm.classList.remove("off");
   homePosts.classList.add("off");
 }
-
-function retrievePosts() {
-  try {
-    const posts = giveMeThePosts();
-
-    containerPosts.innerHTML = "";
-
-    const ul: HTMLUListElement = document.createElement("ul")
-
-    posts.forEach(post => {
-      const li: HTMLLIElement = document.createElement("li");
-      li.classList.add("post")
-
-      const divPostId: HTMLDivElement = document.createElement("div")
-      li.appendChild(divPostId);
-      divPostId.classList.add("post-name");
-      const postId: HTMLParagraphElement = document.createElement("p");
-      divPostId.appendChild(postId);
-      postId.innerText = post.id;
-
-      const divUserId: HTMLDivElement = document.createElement("div")
-      li.appendChild(divUserId);
-      divUserId.classList.add("post-name");
-      const userId: HTMLParagraphElement = document.createElement("p");
-      divUserId.appendChild(userId);
-      userId.innerText = post.user;
-
-      const divText: HTMLDivElement = document.createElement("div")
-      li.appendChild(divText);
-      divText.classList.add("post-name");
-      const text: HTMLParagraphElement = document.createElement("p");
-      divText.appendChild(text);
-      text.innerText = post.text;
-
-      const divDate: HTMLDivElement = document.createElement("div")
-      li.appendChild(divDate);
-      divDate.classList.add("post-name");
-      const date: HTMLParagraphElement = document.createElement("p");
-      divDate.appendChild(date);
-      date.innerText = String(post.date).slice(0, 24)
-
-      if (id === post.user) {
-        const editAndRemove = document.createElement("div");
-        li.appendChild(editAndRemove);
-        editAndRemove.classList.add("post-name")
-        console.log("funciono");
-
-
-        const buttonRemove: HTMLElement = document.createElement("button");
-        editAndRemove.appendChild(buttonRemove)
-        buttonRemove.innerText = "Remove"
-        buttonRemove.classList.add("button-remove")
-        buttonRemove.classList.add(String(post.id))
-        buttonRemove.onclick = function () {
-          removePost(post.id)
-
-          retrievePosts()
-        }
-
-
-        const buttonEdit: HTMLElement = document.createElement("button");
-        editAndRemove.appendChild(buttonEdit)
-        buttonEdit.innerText = "Edit"
-        buttonEdit.classList.add("button-edit")
-        buttonEdit.classList.add(String(post.id))
-      }
-      ul.appendChild(li);
-    })
-
-    containerPosts.appendChild(ul);
-  } catch (error: any) {
-    alert(error.message)
-  }
-}
-
-
 
 homePosts.querySelector<HTMLButtonElement>(".new-post-buttom")!.onclick = function (event) {
   event.preventDefault();

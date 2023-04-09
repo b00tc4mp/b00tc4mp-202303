@@ -1,4 +1,5 @@
-import { findUserByEmail, users, User, findUserById, posts, Post, findPostById } from "./data";
+import { findUserByEmail, users, User, findUserById, posts, Post } from "./data";
+import { containerPost } from "./main"
 
 export function authenticateUser(email: string, password: string): string {
   if (typeof email !== "string") throw new Error("email is not a string");
@@ -80,19 +81,40 @@ export function updateUserPassword(
   foundUser!.password = newPassword;
 }
 
-export function giveMeThePosts() {
-  return posts
-}
+export function retrievePosts() {
+  let post: HTMLDivElement;
 
-export function removePost(postId: string) {
-  if (typeof postId !== "string") throw new Error("postId is not a string");
-  if (!postId) throw new Error("empty postId")
+  containerPost.innerHTML = ''
 
-  const postIndex = posts.findIndex(post => post.id === postId) /* Enfasis en los arrays */
+  for (var i = 0; i < posts.length; i++) {
+    post = document.createElement("div");
+    let postName = document.createElement("div");
+    let postText = document.createElement("div");
+    let postDate = document.createElement("div");
+    let pName = document.createElement("p");
+    let pText = document.createElement("p");
+    let pDate = document.createElement("p");
 
-  if (postIndex < 0) throw new Error(`post with id ${postId} not found`)
+    pName.textContent = posts[i].user
+    pText.textContent = posts[i].text;
+    pDate.textContent = String(posts[0].date).slice(0, 24)
 
-  posts.splice(postIndex, 1)
+    containerPost.appendChild(post);
+    post.appendChild(postName);
+    post.appendChild(postText);
+    post.appendChild(postDate);
+    postName.appendChild(pName);
+    postText.appendChild(pText);
+    postDate.appendChild(pDate);
+
+    post.classList.add("post")
+    postName.classList.add("post-name")
+    postText.classList.add("post-name")
+    postDate.classList.add("post-name")
+    pName.classList.add("p-post")
+    pText.classList.add("p-post")
+    pDate.classList.add("p-post")
+  }
 }
 
 

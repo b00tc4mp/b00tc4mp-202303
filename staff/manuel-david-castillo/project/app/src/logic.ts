@@ -54,14 +54,15 @@ export function updatePassword(
   accounts[id].password = newPassword;
 }
 
-export function rmBenchPress(kg: number, reps: number) {
+export function rmBenchPress(kg: number, reps: number): number {
   let result = kg / (1.0278 - 0.0278 * reps);
-  let wholeResult = result.toFixed();
-  return wholeResult;
+
+  return result;
 }
 
-export function rmPullUp(kg: number, reps: number, bodyweight: number) {
+export function rmPullUp(kg: number, reps: number, bodyweight: number): number {
   let result = (kg + bodyweight) / (1.0278 - 0.0278 * reps) - bodyweight;
-  let wholeResult = result.toFixed();
-  return wholeResult;
+  //let wholeResult = result.toFixed(); /* Pasar a la parte de main */
+  //return wholeResult;
+  return result
 }

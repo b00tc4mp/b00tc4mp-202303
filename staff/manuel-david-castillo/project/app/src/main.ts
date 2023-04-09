@@ -10,15 +10,15 @@ import { accounts, id, newUser } from "./data";
 
 /* Partes de la web */
 
-let loginPanel: Element = document.querySelector(".log-in-form")!; 
+let loginPanel: HTMLDivElement = document.querySelector(".log-in-form")!;
 let loginForm: HTMLFormElement = loginPanel.querySelector("form")!;
-let registerPanel: Element = document.querySelector(".create-account-form")!;
+let registerPanel: HTMLDivElement = document.querySelector(".create-account-form")!;
 let registerForm: HTMLFormElement = registerPanel.querySelector("form")!;
-let initialPage: Element = document.querySelector(".image-and-form")!;
-let homePage: Element = document.querySelector(".home")!;
-let calendarPanel: Element = document.querySelector(".calendar")!;
-let calculatorPanel: Element = document.querySelector(".calculator")!;
-let profilePanel: Element = document.querySelector(".profile")!;
+let initialPage: HTMLDivElement = document.querySelector(".image-and-form")!;
+let homePage: HTMLDivElement = document.querySelector(".home")!;
+let calendarPanel: HTMLDivElement = document.querySelector(".calendar")!;
+let calculatorPanel: HTMLDivElement = document.querySelector(".calculator")!;
+let profilePanel: HTMLDivElement = document.querySelector(".profile")!;
 
 /* Función para pasar de log-in a create an account */
 loginPanel.querySelector("a")!.onclick = function (event) {
@@ -53,11 +53,11 @@ loginForm.onsubmit = function (event) {
 
     let newName: string = "Hello " + accounts[id].name;
     profilePanel.querySelector<HTMLTitleElement>(".h3-name")!.innerText = newName;
-    profilePanel.querySelector<HTMLInputElement>(".p-bodyweight")!.value = accounts[id].bodyweight;
-    profilePanel.querySelector<HTMLInputElement>(".p-height")!.value = accounts[id].height;
+    profilePanel.querySelector<HTMLInputElement>(".p-bodyweight")!.value = accounts[id].bodyweight.toFixed();
+    profilePanel.querySelector<HTMLInputElement>(".p-height")!.value = accounts[id].height.toFixed();
     profilePanel.querySelector<HTMLInputElement>(".p-rm-benchpress")!.value =
-      accounts[id].rmBenchPress;
-    profilePanel.querySelector<HTMLInputElement>(".p-rm-pull-up")!.value = accounts[id].rmPullUp;
+      accounts[id].rmBenchPress.toFixed();
+    profilePanel.querySelector<HTMLInputElement>(".p-rm-pull-up")!.value = accounts[id].rmPullUp.toFixed();
     profilePanel.querySelector<HTMLInputElement>(".p-email")!.innerText = email;
   } catch (error: any) {
     alert(error.message);
@@ -150,7 +150,7 @@ calculatorPanel.querySelector<HTMLAnchorElement>(".input-bench-press")!.onclick 
   const kg: number = Number(calculatorPanel.querySelector<HTMLInputElement>(".kg-bench-press")!.value);
   const reps: number = Number(calculatorPanel.querySelector<HTMLInputElement>(".reps-bench-press")!.value);
 
-  calculatorPanel.querySelector<HTMLInputElement>(".result-1")!.innerText = rmBenchPress(kg, reps);
+  calculatorPanel.querySelector<HTMLInputElement>(".result-1")!.innerText = String(rmBenchPress(kg, reps));
 
   if (rmBenchPress(kg, reps) > accounts[id].rmBenchPress) {
     console.log("nuevo rm");
@@ -168,7 +168,7 @@ calculatorPanel.querySelector<HTMLAnchorElement>(".yes-update-benchpress")!.oncl
   const reps: number = Number(calculatorPanel.querySelector<HTMLInputElement>(".reps-bench-press")!.value);
 
   accounts[id].rmBenchPress = rmBenchPress(kg, reps);
-  profilePanel.querySelector<HTMLInputElement>(".p-rm-benchpress")!.value = rmBenchPress(kg, reps);
+  profilePanel.querySelector<HTMLInputElement>(".p-rm-benchpress")!.value = String(rmBenchPress(kg, reps));
   alert("RM bench press update");
 
   calculatorPanel.querySelector<HTMLElement>(".update-rm-bench-press")!.classList.add("off");
@@ -184,10 +184,10 @@ calculatorPanel.querySelector<HTMLAnchorElement>(".input-pull-up")!.onclick = fu
     kg,
     reps,
     bodyweight
-  );
+  ).toFixed();
 
   if (
-    parseInt(rmPullUp(kg, reps, bodyweight)) > parseInt(accounts[id].rmPullUp)
+    rmPullUp(kg, reps, bodyweight) > accounts[id].rmPullUp
   ) {
     console.log("nuevo rm");
     calculatorPanel.querySelector<HTMLElement>(".update-rm-pull-up")!.classList.remove("off");
@@ -201,11 +201,11 @@ calculatorPanel.querySelector<HTMLAnchorElement>(".yes-update-pullup")!.onclick 
   const bodyweight = Number(document.querySelector<HTMLInputElement>(".bodyweight")!.value);
 
   accounts[id].rmPullUp = rmPullUp(kg, reps, bodyweight);
-  profilePanel.querySelector<HTMLInputElement>(".p-rm-pull-up")!.value = rmPullUp(
+  profilePanel.querySelector<HTMLInputElement>(".p-rm-pull-up")!.value = String(rmPullUp(
     kg,
     reps,
     bodyweight
-  );
+  ));
   alert("RM pull up update");
 
   calculatorPanel.querySelector<HTMLElement>(".update-rm-pull-up")!.classList.add("off");
@@ -243,11 +243,11 @@ profilePanel.querySelector<HTMLAnchorElement>(".save-changes")!.onclick = functi
   profilePanel.querySelector<HTMLElement>(".save-changes")!.classList.add("off");
   profilePanel.querySelector<HTMLElement>(".delete-all")!.classList.remove("off");
 
-  accounts[id].bodyweight = profilePanel.querySelector<HTMLInputElement>(".p-bodyweight")!.value;
-  accounts[id].height = profilePanel.querySelector<HTMLInputElement>(".p-height")!.value;
+  accounts[id].bodyweight = Number(profilePanel.querySelector<HTMLInputElement>(".p-bodyweight")!.value);
+  accounts[id].height = Number(profilePanel.querySelector<HTMLInputElement>(".p-height")!.value);
   accounts[id].rmBenchPress =
-    profilePanel.querySelector<HTMLInputElement>(".p-rm-benchpress")!.value;
-  accounts[id].rmPullUp = profilePanel.querySelector<HTMLInputElement>(".p-rm-pull-up")!.value;
+    Number(profilePanel.querySelector<HTMLInputElement>(".p-rm-benchpress")!.value);
+  accounts[id].rmPullUp = Number(profilePanel.querySelector<HTMLInputElement>(".p-rm-pull-up")!.value);
 
   for (let i = 0; i < accounts.length; i++) {
     profilePanel.querySelectorAll("input")[i].readOnly = true;
@@ -265,10 +265,10 @@ profilePanel.querySelector<HTMLAnchorElement>(".delete-all")!.onclick = function
 profilePanel.querySelector<HTMLAnchorElement>(".yes-delete-all")!.onclick = function (event) {
   event.preventDefault();
 
-  accounts[id].bodyweight = "";
-  accounts[id].height = "";
-  accounts[id].rmBenchPress = "";
-  accounts[id].rmPullUp = "";
+  accounts[id].bodyweight = 0;
+  accounts[id].height = 0;
+  accounts[id].rmBenchPress = 0;
+  accounts[id].rmPullUp = 0;
 
   profilePanel.querySelector<HTMLInputElement>(".p-bodyweight")!.value = "";
   profilePanel.querySelector<HTMLInputElement>(".p-height")!.value = "";

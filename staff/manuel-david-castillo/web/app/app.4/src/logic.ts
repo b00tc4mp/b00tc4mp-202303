@@ -1,6 +1,6 @@
-import { findUserByEmail, users, User, findUserById, posts, Post, findPostById } from "./data";
+import { findUserByEmail, users, User} from "./data";
 
-export function authenticateUser(email: string, password: string): string {
+export function authenticateUser(email: string, password: string) {
   if (typeof email !== "string") throw new Error("email is not a string");
   if (!email) throw new Error("email is empty");
   if (typeof password !== "string") throw new Error("password is not string");
@@ -15,8 +15,6 @@ export function authenticateUser(email: string, password: string): string {
   if (foundUser.password !== password) {
     throw new Error("wrong password");
   }
-
-  return foundUser.id;
 }
 
 export function registerUser(name: string, email: string, password: string) {
@@ -31,20 +29,7 @@ export function registerUser(name: string, email: string, password: string) {
 
   if (foundUser) throw new Error("users already exists");
 
-  let id: string;
-
-  const lastUser = users[users.length - 1];
-
-  if (lastUser) {
-    const count = parseInt(lastUser.id.slice(5))
-
-    id = "user-" + String(count + 1)
-  } else {
-    id = "user-1"
-  }
-
   const user: User = {
-    id: id,
     name: name,
     email: email,
     password: password,
@@ -54,13 +39,13 @@ export function registerUser(name: string, email: string, password: string) {
 }
 
 export function updateUserPassword(
-  id: string,
+  email: string,
   password: string,
   newPassword: string,
   newPasswordConfirmation: string
 ) {
-  if (typeof id !== "string") throw new Error("id is not a string");
-  if (!id) throw new Error("id is empty");
+  if (typeof email !== "string") throw new Error("email is not a string");
+  if (!email) throw new Error("email is empty");
   if (typeof password !== "string") throw new Error("password is not a string");
   if (!password) throw new Error("password is empty");
   if (typeof newPassword !== "string")
@@ -71,53 +56,12 @@ export function updateUserPassword(
   if (!newPasswordConfirmation)
     throw new Error("new password confirmation is empty");
 
-  var foundUser: User | null = findUserById(id);
+  var foundUser: User | null = findUserByEmail(email);
 
+  if (email !== foundUser!.email) throw new Error("wrong email");
   if (password !== foundUser!.password) throw new Error("wrong password");
   if (newPassword !== newPasswordConfirmation)
     throw new Error("different password");
 
   foundUser!.password = newPassword;
-}
-
-export function giveMeThePosts() {
-  return posts
-}
-
-export function removePost(postId: string) {
-  if (typeof postId !== "string") throw new Error("postId is not a string");
-  if (!postId) throw new Error("empty postId")
-
-  const postIndex = posts.findIndex(post => post.id === postId) /* Enfasis en los arrays */
-
-  if (postIndex < 0) throw new Error(`post with id ${postId} not found`)
-
-  posts.splice(postIndex, 1)
-}
-
-
-export function createPost(userId: string, text: string) {
-  if (typeof text !== "string") throw new Error("userId is not a string");
-  if (!text) throw new Error("empty text")
-
-  let id: string;
-
-  const lastPost = posts[posts.length - 1];
-
-  if (lastPost) {
-    const count = parseInt(lastPost.id.slice(5))
-
-    id = "post-" + String(count + 1)
-  } else {
-    id = "post-1"
-  }
-
-  const post: Post = {
-    id: id,
-    user: userId,
-    text: text,
-    date: new Date()
-  }
-
-  posts.push(post)
 }
