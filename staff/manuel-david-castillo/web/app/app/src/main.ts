@@ -1,4 +1,4 @@
-import { authenticateUser, registerUser, updateUserPassword, createPost, giveMeThePosts, removePost } from "./logic";
+import { authenticateUser, registerUser, updateUserPassword, createPost, giveMeThePosts, removePost, editPost } from "./logic";
 import { findUserById } from "./data";
 
 let id: string;
@@ -139,31 +139,93 @@ function retrievePosts() {
       if (id === post.user) {
         const editAndRemove = document.createElement("div");
         li.appendChild(editAndRemove);
-        editAndRemove.classList.add("post-name")
+        editAndRemove.classList.add("post-edit-remove")
         console.log("funciono");
 
 
         const buttonRemove: HTMLElement = document.createElement("button");
         editAndRemove.appendChild(buttonRemove)
         buttonRemove.innerText = "Remove"
-        buttonRemove.classList.add("button-remove")
-        buttonRemove.classList.add(String(post.id))
         buttonRemove.onclick = function () {
-          removePost(post.id)
+          document.getElementsByTagName('body')[0].style.overflow = 'hidden'
 
-          retrievePosts()
+          const containerRemove: HTMLDivElement = document.createElement("div")
+          homePage.appendChild(containerRemove)
+          containerRemove.classList.add("container-edit")
+
+          const divRemove: HTMLDivElement = document.createElement("div")
+          containerRemove.appendChild(divRemove)
+          divRemove.classList.add("div-remove")
+          divRemove.innerText = "Are you sure?"
+
+          const divYesNo: HTMLDivElement = document.createElement("div")
+          divRemove.appendChild(divYesNo)
+          divYesNo.classList.add("div-yes-no")
+
+          const yesButton: HTMLButtonElement = document.createElement("button")
+          divYesNo.appendChild(yesButton)
+
+          const noButton: HTMLButtonElement = document.createElement("button")
+          divYesNo.appendChild(noButton)
+
+          const anchorBackRemove: HTMLAnchorElement = document.createElement("a")
+          divRemove.appendChild(anchorBackRemove)
+          anchorBackRemove.classList.add("anchor-back")
+          anchorBackRemove.innerText = "Back"
+          anchorBackRemove.setAttribute("href", "")
+          anchorBackRemove.onclick = function (event) {
+            event.preventDefault()
+            containerRemove.classList.add("off")
+
+          }
+
+          const buttonEdit: HTMLElement = document.createElement("button");
+          editAndRemove.appendChild(buttonEdit)
+          buttonEdit.innerText = "Edit"
+          buttonEdit.onclick = function () {
+            const containerEdit: HTMLDivElement = document.createElement("div")
+            homePage.appendChild(containerEdit)
+            containerEdit.classList.add("container-edit")
+
+            const formEdit: HTMLFormElement = document.createElement("form")
+            containerEdit.appendChild(formEdit)
+            formEdit.classList.add("form-edit")
+            formEdit.classList.add("form-post")
+
+            const inputText: HTMLInputElement = document.createElement("input")
+            formEdit.appendChild(inputText)
+            inputText.classList.add("input-text-edit")
+            inputText.value = post.text
+
+            const buttonEditForm: HTMLButtonElement = document.createElement("button")
+            formEdit.appendChild(buttonEditForm)
+            buttonEditForm.classList.add("button-edit-form")
+            buttonEditForm.innerText = "Save"
+
+            formEdit.onsubmit = function (event) {
+              event.preventDefault()
+              editPost(inputText.value, post.id)
+
+              containerEdit.classList.add("off")
+              retrievePosts()
+            }
+
+
+            const anchorBack: HTMLAnchorElement = document.createElement("a")
+            formEdit.appendChild(anchorBack)
+            anchorBack.classList.add("anchor-back")
+            anchorBack.innerText = "Back"
+            anchorBack.setAttribute("href", "")
+            anchorBack.onclick = function (event) {
+              event.preventDefault()
+              containerEdit.classList.add("off")
+            }
+          }
         }
 
-
-        const buttonEdit: HTMLElement = document.createElement("button");
-        editAndRemove.appendChild(buttonEdit)
-        buttonEdit.innerText = "Edit"
-        buttonEdit.classList.add("button-edit")
-        buttonEdit.classList.add(String(post.id))
       }
       ul.appendChild(li);
     })
-
     containerPosts.appendChild(ul);
   } catch (error: any) {
     alert(error.message)
@@ -172,13 +234,13 @@ function retrievePosts() {
 
 
 
-homePosts.querySelector<HTMLButtonElement>(".new-post-buttom")!.onclick = function (event) {
+homePosts.querySelector<HTMLButtonElement>(".new-post-button")!.onclick = function (event) {
   event.preventDefault();
 
   containerNewPost.classList.remove("off");
 }
 
-containerNewPost.querySelector<HTMLButtonElement>(".buttom-post")!.onclick = function (event) {
+containerNewPost.querySelector<HTMLButtonElement>(".button-post")!.onclick = function (event) {
   event.preventDefault();
 
   let userId = id;
@@ -192,7 +254,14 @@ containerNewPost.querySelector<HTMLButtonElement>(".buttom-post")!.onclick = fun
     containerNewPost.classList.add("off")
 
     retrievePosts()
+    containerNewPost.querySelector<HTMLInputElement>(".input-user")!.value = findUserById(id)!.name
   } catch (error: any) {
     alert(error.message)
   }
-} 
+}
+
+containerNewPost.querySelector<HTMLAnchorElement>(".back-new-post")!.onclick = function (event) {
+  event.preventDefault();
+
+  containerNewPost.classList.add("off")
+}

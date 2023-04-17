@@ -1,22 +1,13 @@
-export default function slice(array: Array<any>, principio: number, fin?: number): Array<any> {
+export default function slice(array: Array<any>, beggining: number, end?: number): Array<any> {
     let newArray: Array<any> = [];
-    if (principio >= array.length) {
+    let n = 0;
+    if (beggining >= array.length) {
         return newArray
     }
-    if (principio < 0) {
-        for (let i = array.length + principio; i < array.length; i++) {
-            newArray.push(array[i]);
-            if (fin === i + 1) {
-                return newArray
-            }
-        }
-    } else {
-        for (let i = principio; i < array.length; i++) {
-            newArray.push(array[i]);
-            if (fin === i + 1) {
-                return newArray
-            }
-        }
+
+    for (let i = beggining < 0 ? array.length + beggining : beggining; i < (end! >= array.length || !end ? array.length : end); i++) {
+        newArray[n] = (array[i]);
+        n++
     }
     return newArray;
 }

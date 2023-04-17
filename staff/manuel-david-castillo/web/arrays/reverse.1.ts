@@ -1,7 +1,7 @@
 export default function reverse(array: Array<any>): Array<any> {
     let reverseArray: Array<any> = [];
-    for (let i = 0; i < array.length; i++) {
-        reverseArray[i] = array[array.length - (i + 1)]
+    for (let i = array.length - 1; i >= 0; i--) {
+        reverseArray.push(array[i])
     }
     return reverseArray
 }

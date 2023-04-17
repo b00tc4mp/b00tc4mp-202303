@@ -1,6 +1,10 @@
 export default function concat(array1: Array<any>, array2: Array<any>): Array<any> {
-    let stringArray1 = array1.toString();
-    let stringArray2 = array2.toString();
-    let newArray = stringArray1 + "," + stringArray2
-    return newArray.split(",");
+    let c: Array<any> = [];
+    for (let i = 0; i < array1.length; i++) {
+        c[i] = array1[i]
+    }
+    for (let i = 0; i < array1.length; i++) {
+        c[i + array1.length] = array2[i]
+    }
+    return c
 }

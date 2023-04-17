@@ -1,17 +1,26 @@
+console.log('lasIndexOf demo')
 import lastIndexOf from "./lastIndexOf";
 
 const animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo'];
 
+console.log('case 0')
 console.log(lastIndexOf(animals, 'Dodo'));
 // Expected output: 3
 
+console.log('case 1')
 console.log(lastIndexOf(animals, 'Tiger'));
 // Expected output: 1
 
 var array = [2, 5, 9, 2];
+console.log('case 2')
 console.log(lastIndexOf(array, 2));     // 3
+console.log('case 3')
 console.log(lastIndexOf(array, 7));     // -1
+console.log('case 4')
 console.log(lastIndexOf(array, 2, 3));  // 3
+console.log('case 5')
 console.log(lastIndexOf(array, 2, 2));  // 0
+console.log('case 6')
 console.log(lastIndexOf(array, 2, -2)); // 0
+console.log('case 7')
 console.log(lastIndexOf(array, 2, -1)); // 3

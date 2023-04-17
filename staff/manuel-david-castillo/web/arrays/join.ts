@@ -1,19 +1,11 @@
-export default function join(array: Array<any>, string?: string): string {
+export default function join(array: Array<any>, string?: any): string {
     let newString = "";
 
-    if (typeof string === "string") {
-        for (let i = 0; i < array.length; i++) {
-            newString += array[i];
-            if (i < array.length - 1) {
-                newString += string
-            }
-        }
-    } else {
-        for (let i = 0; i < array.length; i++) {
-            newString += array[i];
-            if (i < array.length - 1) {
-                newString += ","
-            }
+    for (let i = 0; i < array.length; i++) {
+        newString += array[i];
+
+        if (i < array.length - 1) {
+            newString += typeof string !== 'undefined' ? string : ','
         }
     }
 

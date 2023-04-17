@@ -1,4 +1,4 @@
-import { findUserByEmail, users, User, findUserById, posts, Post, findPostById } from "./data";
+import { findUserByEmail, users, User, findUserById, posts, Post } from "./data";
 
 export function authenticateUser(email: string, password: string): string {
   if (typeof email !== "string") throw new Error("email is not a string");
@@ -88,11 +88,24 @@ export function removePost(postId: string) {
   if (typeof postId !== "string") throw new Error("postId is not a string");
   if (!postId) throw new Error("empty postId")
 
-  const postIndex = posts.findIndex(post => post.id === postId) /* Enfasis en los arrays */
+  const postIndex = posts.findIndex(post => post.id === postId)
 
   if (postIndex < 0) throw new Error(`post with id ${postId} not found`)
 
   posts.splice(postIndex, 1)
+}
+
+export function editPost(newText: string, postId: string) {
+  if (typeof newText !== "string") throw new Error("newText is not a string");
+  if (!newText) throw new Error("empty newText")
+  if (typeof postId !== "string") throw new Error("postId is not a string");
+  if (!postId) throw new Error("empty postId")
+
+  const postIndex = posts.findIndex(post => post.id === postId)
+  if (postIndex < 0) throw new Error(`post with id ${postId} not found`)
+
+  posts[postIndex].text = newText
+  posts[postIndex].date = new Date()
 }
 
 
