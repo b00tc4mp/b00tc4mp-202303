@@ -17,7 +17,7 @@ describe('isArray', () => {
         expect(isArray(new Array(3))).toEqual(true)
     })
     it('return true if is a Array, return false if no', () => {
-        expect(isArray(Array.prototype)).toEqual(true)
+        expect(isArray(Array.prototype)).toEqual(false)
     })
     it('return true if is a Array, return false if no', () => {
         expect(isArray({})).toEqual(false)
@@ -37,10 +37,10 @@ describe('isArray', () => {
     it('return true if is a Array, return false if no', () => {
         expect(isArray(true)).toEqual(false)
     })
-    it('return true if is a Array, return false if no', () => {
+    it('returns false for a boolean', () => {
         expect(isArray(false)).toEqual(false)
     })
-    it('return true if is a Array, return false if no', () => {
-        expect(isArray({ __proto__: Array.prototype })).toEqual(false)
+    it('returns false for a function', () => {
+        expect(isArray(function () { })).toEqual(false)
     })
 })

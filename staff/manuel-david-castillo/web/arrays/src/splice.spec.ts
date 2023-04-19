@@ -22,7 +22,7 @@ describe('splice', () => {
     it('should return a new array modified', () => {
         const abc = ['a', 'b', 'c', 'd'];
         splice(abc, 4, 1, 'e', 'f', 'g');
-
+        debugger
         expect(abc).toEqual(['a', 'b', 'c', 'd', 'e', 'f', 'g'])
     })
 })

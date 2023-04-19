@@ -10,6 +10,7 @@ describe('group', () => {
       { name: "fish", type: "meat", quantity: 22 },
     ];
 
+    //@ts-ignore
     const result: any = group(inventory, ({ type }) => type);
 
     expect(result).toEqual({
@@ -35,6 +36,7 @@ describe('group', () => {
       { name: "fish", type: "meat", quantity: 22 },
     ];
 
+    //@ts-ignore
     function myCallback({ quantity }) {
       return quantity > 5 ? "ok" : "restock";
     }

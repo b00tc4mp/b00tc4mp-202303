@@ -16,7 +16,7 @@ describe('unshift', () => {
     it('should add the value of the beggining of the array and return the new array lengh', () => {
         let arr = [-2, -1, 0, 1, 2];
 
-        expect(unshift(arr,)).toEqual(5)
+        expect(unshift(arr, [-3])).toEqual(6)
         expect(arr).toEqual([[-3], -2, -1, 0, 1, 2])
     })
 })

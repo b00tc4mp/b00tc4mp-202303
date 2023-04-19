@@ -24,6 +24,7 @@ describe('map', () => {
 
         function reformattedArray(obj: any) {
             var rObj = {};
+            // @ts-ignore
             rObj[obj.clave] = obj.valor;
             return rObj;
         };
