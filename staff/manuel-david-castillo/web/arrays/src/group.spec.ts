@@ -1,7 +1,7 @@
 import group from "./group";
 
 describe('group', () => {
-  it('should return a object with the element divided according to the function condition', () => {
+  it('should return a object with the element divided according to the type', () => {
     const inventory = [
       { name: "asparagus", type: "vegetables", quantity: 5 },
       { name: "bananas", type: "fruit", quantity: 0 },
@@ -27,7 +27,7 @@ describe('group', () => {
       ]
     })
   })
-  it('should return a object with the element divided according to the function condition', () => {
+  it('should return a object with the element divided according the quantify', () => {
     const inventory = [
       { name: "asparagus", type: "vegetables", quantity: 5 },
       { name: "bananas", type: "fruit", quantity: 0 },
