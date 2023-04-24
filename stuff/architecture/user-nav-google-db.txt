@@ -1,0 +1,13 @@
+User -> Nav: google.com
+Nav -> Google: /
+Google -> Nav: <html>
+Nav -> Nav: load
+Nav -> User: [...]
+
+User -> Nav: google.com/search?q=hola
+Nav -> Google: /search?q=hola
+Google -> DB: search "hola"
+DB -> Google: results "hola"
+Google -> Nav: <html>
+Nav -> Nav: load
+Nav -> User: [...]
