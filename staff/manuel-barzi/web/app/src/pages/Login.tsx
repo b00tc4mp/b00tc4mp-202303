@@ -8,7 +8,9 @@ export default function Login(props) {
         const password = event.target.password.value
 
         try {
-            authenticateUser(email, password)
+            const userId = authenticateUser(email, password)
+
+            sessionStorage.userId = userId
 
             props.onAuthenticated()
         } catch (error) {
