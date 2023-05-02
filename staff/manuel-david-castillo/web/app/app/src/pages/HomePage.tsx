@@ -28,8 +28,10 @@ function HomePage (props) {
 
   const [viewRemovePost, setViewRemovePost] = useState(false)
 
-  function viewRemovePostButton() {
+  function viewRemovePostButton(postId) {
     setViewRemovePost(true)
+
+    sessionStorage.postId = postId
   }
 
   function hideRemovePostButton() {
@@ -38,15 +40,18 @@ function HomePage (props) {
 
   const [viewEditPost, setViewEditPost] = useState(false)
 
-  function viewEditPostButton() {
+  function viewEditPostButton(postId, postText) {
     setViewEditPost(true)
+
+    sessionStorage.postId = postId
+    sessionStorage.postText = postText
   }
 
   function hideEditPostButton() {
     setViewEditPost(false)
   }
   
-  document.body.style.overflow = (viewEditPost || viewNewPost || viewRemovePost) ? 'hidden' : 'auto'
+  document.body.style.overflow = (viewEditPost || viewNewPost || viewRemovePost || viewUpdatePassword) ? 'hidden' : 'auto'
 
   return <div className="home page">
     <header className="home-header">
@@ -67,13 +72,13 @@ function HomePage (props) {
           <p className="post-name">{post.text}</p>
           <time className="post-name">{post.date.toLocaleString()}</time>
           <div> 
-            <button onClick={viewEditPostButton} className="button">Edit</button>
-            <button onClick={viewRemovePostButton} className="button">Remove</button>
+            <button onClick={() => viewEditPostButton(post.id, post.text)} className="button">Edit</button>
+            <button onClick={() => viewRemovePostButton(post.id)} className="button">Remove</button>
           </div>
           
         </li>)}
       </ul>
-    </div>
+    </div> 
 
     {viewUpdatePassword && <UpdatePassword onBack = {hideUpdatePasswordClick}/>}
     {viewNewPost && <NewPost onBackNewPost = {hideNewPostButton}/> }

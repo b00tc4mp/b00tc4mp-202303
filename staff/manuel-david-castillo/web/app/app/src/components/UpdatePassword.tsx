@@ -19,9 +19,9 @@ export default function UpdatePassword (props) {
         }
       }
 
-    return <>
-    <h3>Change Password</h3>
+    return <div className="create-post">
         <form onSubmit={updateUserPasswordForm} className="form change-password" action="">
+          <h3>Change Password</h3>
         <input
           className="input"
           type="password"
@@ -43,6 +43,5 @@ export default function UpdatePassword (props) {
         <button className="button">Update password</button>
         <a onClick={props.onBack} className="anchor" href="#">Back</a>
       </form>
-      
-    </>
+    </div>
 }
