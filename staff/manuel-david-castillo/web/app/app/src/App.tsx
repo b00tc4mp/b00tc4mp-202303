@@ -1,61 +1,37 @@
-import { useState } from 'react'
 import './App.css' 
+import Login from './pages/Login'
+import CreateAccount from './pages/CreateAccount'
+import HomePage from './pages/HomePage'
+import { useState } from 'react'
 
-/* Se crea una función que devuelve todo lo que se ve en pantalla */
 function App() { 
+  const [view, setView] = useState('login')
 
-  const [viewLogIn, setViewLogIn] = useState('page')
-  const createAccountClick = () => {
-    setViewLogIn('off')
-    setViewCreateAccount('page')
+  function viewCreateAccount() {
+    setView('createAccount')
   }
 
-  const [viewCreateAccount, setViewCreateAccount] = useState('off')
-  const goToLogInClick = () => {
-    setViewLogIn('page')
-    setViewCreateAccount('off')
+  function viewLogIn() {
+    setView('login')
   }
 
-  return (
-    <div><div className={viewLogIn}>
-      <h1>Log-in</h1>
-      <form className="form">
-        <input className="input" type="email" name="email" placeholder="email" />
-        <input
-          className="input"
-          type="password"
-          name="password"
-          placeholder="password"
-        />
+  function handleAuthenticated() {
+    setView('home')
+  }
 
-        <button className="button">login</button>
-        
-      </form>
-      <a onClick={createAccountClick} href="#">Create account</a>
+  function registerUser() {
+    setView('login')
+  }
 
-    </div>
-    <div className= {viewCreateAccount}>
-      <h1>Register</h1>
-
-      <form className="form">
-        <input className="input" type="name" name="name" placeholder="name" />
-        <input className="input" type="email" name="email" placeholder="email" />
-        <input
-          className="input"
-          type="password"
-          name="password"
-          placeholder="password"
-        />
-
-        <button className="button">register</button>
-      </form>
-
-      <a onClick={goToLogInClick} href="#">Go to log-in</a>
-    </div>
-</div>
-    
-    
-  )
+  return <>
+  {view === 'login' && <Login 
+    onAuthenticated={handleAuthenticated} 
+    onChangeCreatteAccount = {viewCreateAccount} />}
+  {view === 'createAccount' && <CreateAccount 
+    onChangeLogin = {viewLogIn} 
+    onRegisterUser = {registerUser}/>}
+  {view === 'home' && <HomePage onBackLogin = {viewLogIn}/>}
+</>
 }
 
 export default App
