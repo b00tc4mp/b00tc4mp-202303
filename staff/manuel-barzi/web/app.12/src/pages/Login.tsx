@@ -1,10 +1,6 @@
 import { authenticateUser } from '../logic'
-import { useContext } from 'react'
-import Context from '../Context'
 
 export default function Login(props) {
-    const { alert } = useContext(Context)
-
     function handleSubmit(event) {
         event.preventDefault()
 
