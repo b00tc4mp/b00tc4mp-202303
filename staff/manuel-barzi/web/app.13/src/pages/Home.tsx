@@ -1,12 +1,9 @@
-import { retrievePosts } from '../logic'
-import CreatePost from '../components/CreatePost'
-import { useState, useContext } from 'react'
-import Context from '../Context'
+import { retrievePosts } from '../logic.js'
+import CreatePost from '../components/CreatePost.js'
+import { useState } from 'react'
 
 export default function Home() {
     const [createPostVisible, setCreatePostVisible] = useState(false)
-
-    const { toggleTheme } = useContext(Context)
 
     const posts = retrievePosts()
 
@@ -25,13 +22,11 @@ export default function Home() {
             <nav>
                 <a href="" className="nav-profile nav-link">Profile</a>
             </nav>
-
-            <button onClick={toggleTheme}>switch theme</button>
         </header>
 
         <div className="post-list">
             <ul>
-                {posts.map(post => <li className="post">
+                {posts.map(post => <li>
                     <p>{post.user}</p>
                     <p>{post.text}</p>
                     <time>{post.date.toLocaleString()}</time>

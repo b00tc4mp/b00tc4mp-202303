@@ -1,4 +1,4 @@
-import { users, posts, User, Post } from './data'
+import { users, posts, User, Post } from './data.js'
 
 export function authenticateUser(email: string, password: string): string {
     if (typeof email !== 'string') throw new Error('email is not a string')

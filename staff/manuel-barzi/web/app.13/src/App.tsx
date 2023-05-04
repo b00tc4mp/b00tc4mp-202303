@@ -5,7 +5,7 @@ import Alert from './components/Alert'
 import Context from './Context'
 
 function App() {
-  const [view, setView] = useState('home')
+  const [view, setView] = useState('login')
   const [feedback, setFeedback] = useState()
 
   function handleAuthenticated() {
@@ -16,11 +16,7 @@ function App() {
     setFeedback()
   }
 
-  function handleToggleTheme() {
-    document.querySelector(':root')!.classList.toggle('dark')
-  }
-
-  return <Context.Provider value={{ alert: setFeedback, toggleTheme: handleToggleTheme }}>
+  return <Context.Provider value={{ alert: setFeedback }}>
     {view === 'login' && <Login onAuthenticated={handleAuthenticated} />}
 
     {view === 'home' && <Home />}
