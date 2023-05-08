@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { updateUserPassword } from "../logic";
+import Context from "../pages/Context";
 
-export default function UpdatePassword (props) {
-    function updateUserPasswordForm(event) {
+export default function UpdatePassword (props: any) {
+  const { alert } = useContext(Context)
+
+    function updateUserPasswordForm(event: any) {
         event.preventDefault();
   
         const id = sessionStorage.userId
@@ -14,7 +18,7 @@ export default function UpdatePassword (props) {
   
           alert('password correctly update')
           props.onBack()
-        } catch (error) {
+        } catch (error: any) {
           alert(error.message)
         }
       }

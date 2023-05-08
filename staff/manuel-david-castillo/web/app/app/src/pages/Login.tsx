@@ -1,12 +1,16 @@
 import { authenticateUser } from "../logic"
+import { useContext } from "react";
+import Context from "./Context";
 
-export default function Login(props) {
+export default function Login(props: any) {
+    const { alert } = useContext(Context)
+
     function changeCreateAccount() {
 
         props.onChangeCreatteAccount()
     }
 
-    function handleSubmit(event) {
+    function handleSubmit(event: any) {
         event.preventDefault();
 
         const email = event.target.email.value
@@ -18,7 +22,7 @@ export default function Login(props) {
             sessionStorage.userId = userId
 
             props.onAuthenticated()
-        } catch (error) {
+        } catch (error: any) {
             alert(error.message)
         }
     }

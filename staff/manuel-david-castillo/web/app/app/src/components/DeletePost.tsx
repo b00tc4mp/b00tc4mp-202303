@@ -1,14 +1,18 @@
+import { useContext } from "react";
 import { removePost } from "../logic"
+import Context from "../pages/Context";
 
-export default function DeletePost(props) {
-    function deletePostButton(event) {
+export default function DeletePost(props: any) {
+    const { alert } = useContext(Context)
+
+    function deletePostButton(event: any) {
         event.preventDefault(); 
 
         try {
             removePost(sessionStorage.postId)
 
             props.onBackRemovePost()
-        } catch (error) {
+        } catch (error: any) {
             alert(error.message)
         }
     }

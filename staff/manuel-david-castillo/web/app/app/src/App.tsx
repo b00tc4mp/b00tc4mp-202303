@@ -1,17 +1,19 @@
 import './App.css' 
+import { useState } from 'react'
 import Login from './pages/Login'
 import CreateAccount from './pages/CreateAccount'
-import HomePage from './pages/HomePage'
-import { useState } from 'react'
+import Home from './pages/Home'
+import Context from './pages/Context'
+import Alert from './components/Alert'
 
 function App() { 
   const [view, setView] = useState('login')
 
-  function viewCreateAccount() {
+  function handleCreateAccount() {
     setView('createAccount')
   }
 
-  function viewLogIn() {
+  function handleLogIn() {
     setView('login')
   }
 
@@ -23,15 +25,22 @@ function App() {
     setView('login')
   }
 
-  return <>
+  const [feedback, setFeedback] = useState()
+
+  function handleAcceptFeedback() {
+    setFeedback(undefined)
+  }
+
+  return <Context.Provider value = {{alert: setFeedback, logOut: handleLogIn}}>
   {view === 'login' && <Login 
     onAuthenticated={handleAuthenticated} 
-    onChangeCreatteAccount = {viewCreateAccount} />}
+    onChangeCreatteAccount = {handleCreateAccount} />}
   {view === 'createAccount' && <CreateAccount 
-    onChangeLogin = {viewLogIn} 
+    onChangeLogin = {handleLogIn} 
     onRegisterUser = {registerUser}/>}
-  {view === 'home' && <HomePage onBackLogin = {viewLogIn}/>}
-</>
+  {view === 'home' && <Home sendOnBackLogin = {handleLogIn}/>}
+  {feedback && <Alert message = {feedback} onAccept = {handleAcceptFeedback}/>}
+</Context.Provider> 
 }
 
 export default App

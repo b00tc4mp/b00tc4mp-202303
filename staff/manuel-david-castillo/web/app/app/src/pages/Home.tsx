@@ -1,14 +1,17 @@
 import NewPost from "../components/NewPost"
 import UpdatePassword from "../components/UpdatePassword"
+import LogOut from "../components/BackLogin"
 import EditePost from "../components/EditPost"
 import DeletePost from "../components/DeletePost"
 import { useState } from "react"
 import { posts } from "../data"
 
-function HomePage (props) {
+
+function HomePage (props: any) {
+
   const [viewUpdatePassword, setViewUpdatePassword] = useState(false) 
 
-  function viewUpdatePasswordClick() {
+  function handleUpdatePasswordClick() {
     setViewUpdatePassword(true)
   }
 
@@ -16,9 +19,19 @@ function HomePage (props) {
     setViewUpdatePassword(false)
   }
 
+  const [viewBackLogin, setViewBackLogin] = useState(false)
+
+  function handleBackLogin() {
+    setViewBackLogin(true)
+  }
+
+  function hideBackLogin() {
+    setViewBackLogin(false)
+  }
+
   const [viewNewPost, setViewNewPost] = useState(false)
 
-  function viewNewPostButton() {
+  function handleNewPostButton() {
     setViewNewPost(true)
   }
 
@@ -28,7 +41,7 @@ function HomePage (props) {
 
   const [viewRemovePost, setViewRemovePost] = useState(false)
 
-  function viewRemovePostButton(postId) {
+  function handleRemovePostButton(postId: string) {
     setViewRemovePost(true)
 
     sessionStorage.postId = postId
@@ -40,7 +53,7 @@ function HomePage (props) {
 
   const [viewEditPost, setViewEditPost] = useState(false)
 
-  function viewEditPostButton(postId, postText) {
+  function handleEditPostButton(postId: string, postText: string) {
     setViewEditPost(true)
 
     sessionStorage.postId = postId
@@ -50,18 +63,27 @@ function HomePage (props) {
   function hideEditPostButton() {
     setViewEditPost(false)
   }
+
+  function postOfUser(postId: string) {
+    if (postId === sessionStorage.userId) {
+      return true
+    } else {
+      return false
+    }
+  }
   
-  document.body.style.overflow = (viewEditPost || viewNewPost || viewRemovePost || viewUpdatePassword) ? 'hidden' : 'auto'
+  document.body.style.overflow = (viewEditPost || viewNewPost || viewRemovePost ||
+     viewUpdatePassword || viewBackLogin) ? 'hidden' : 'auto'
 
   return <div className="home page">
     <header className="home-header">
       <h1 className="home-title">Hola home!!</h1>
 
       <nav>
-        <a onClick={viewUpdatePasswordClick} href="#" className="nav-profile nav-link">Update Password</a>
+        <a onClick={handleUpdatePasswordClick} href="#" className="nav-profile nav-link">Update Password</a>
       </nav>
       <nav>
-        <a onClick={props.onBackLogin} href="#" className="nav-profile nav-link">Back Log-in</a>
+        <a onClick={() => handleBackLogin()} href="#" className="nav-profile nav-link">Back Log-in</a>
       </nav>
     </header>
 
@@ -72,21 +94,22 @@ function HomePage (props) {
           <p className="post-name">{post.text}</p>
           <time className="post-name">{post.date.toLocaleString()}</time>
           <div> 
-            <button onClick={() => viewEditPostButton(post.id, post.text)} className="button">Edit</button>
-            <button onClick={() => viewRemovePostButton(post.id)} className="button">Remove</button>
-          </div>
+            {postOfUser(post.user) && <button onClick={() => handleEditPostButton(post.id, post.text)} className="button">Edit</button>}
+            <button onClick={() => handleRemovePostButton(post.id)} className="button">Remove</button>
+          </div> 
           
         </li>)}
       </ul>
     </div> 
 
     {viewUpdatePassword && <UpdatePassword onBack = {hideUpdatePasswordClick}/>}
+    {viewBackLogin && <LogOut onBackHome = {hideBackLogin}/>}
     {viewNewPost && <NewPost onBackNewPost = {hideNewPostButton}/> }
     {viewEditPost && <EditePost onBackEditPost = {hideEditPostButton}/>}
     {viewRemovePost && <DeletePost onBackRemovePost = {hideRemovePostButton}/>}
 
     <footer className="home-footer">
-            <button onClick={viewNewPostButton} className="create-post-button" >New post!!</button>
+            <button onClick={handleNewPostButton} className="create-post-button" >New post!!</button>
         </footer>
     
   </div>

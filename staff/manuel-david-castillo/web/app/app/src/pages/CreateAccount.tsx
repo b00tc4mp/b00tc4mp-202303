@@ -1,12 +1,16 @@
+import { useContext } from "react";
 import { registerUser } from "../logic";
+import Context from "./Context";
 
-export default function CreateAccount(props) {
+export default function CreateAccount(props:any) {
+  const {alert} = useContext(Context)
+
     function changeLogin() {
 
         props.onChangeLogin()
     }
 
-    function createAccount(event) {
+    function createAccount(event: any) {
         event.preventDefault();
 
         const name = event.target.name.value
@@ -17,7 +21,7 @@ export default function CreateAccount(props) {
             registerUser(name, email, password)
 
             props.onRegisterUser()
-        } catch (error) {
+        } catch (error: any) {
             alert(error.message)
         }
     }

@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { createPost } from "../logic";
+import Context from "../pages/Context";
 
-export default function NewPost(props) {
-    function createPostButton(event) {
+export default function NewPost(props: any) {
+    const{ alert } = useContext(Context)
+
+    function createPostButton(event: any) {
         event.preventDefault();
 
         const userId = sessionStorage.userId;
@@ -13,7 +17,7 @@ export default function NewPost(props) {
 
             props.onBackNewPost()
         }
-        catch(error) {
+        catch(error: any) {
             alert(error.message)
         }
     }
