@@ -2,11 +2,9 @@ import { retrievePosts } from '../logic'
 import CreatePost from '../components/CreatePost'
 import { useState, useContext } from 'react'
 import Context from '../Context'
-import { useNavigate } from 'react-router-dom'
 
 export default function Home() {
     const [createPostVisible, setCreatePostVisible] = useState(false)
-    const navigate = useNavigate()
 
     const { toggleTheme } = useContext(Context)
 
@@ -20,12 +18,6 @@ export default function Home() {
         setCreatePostVisible(false)
     }
 
-    function handleLogout() {
-        delete sessionStorage.userId
-
-        navigate('/login')
-    }
-
     return <div className="home page">
         <header className="home-header">
             <h1 className="home-title">hola home!</h1>
@@ -35,12 +27,11 @@ export default function Home() {
             </nav>
 
             <button onClick={toggleTheme}>switch theme</button>
-            <button onClick={handleLogout}>logout</button>
         </header>
 
         <div className="post-list">
             <ul>
-                {posts.map(post => <li key={post.id} className="post">
+                {posts.map(post => <li className="post">
                     <p>{post.user}</p>
                     <p>{post.text}</p>
                     <time>{post.date.toLocaleString()}</time>
