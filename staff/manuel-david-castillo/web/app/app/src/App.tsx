@@ -5,24 +5,28 @@ import CreateAccount from './pages/CreateAccount'
 import Home from './pages/Home'
 import Context from './pages/Context'
 import Alert from './components/Alert'
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 
 function App() { 
-  const [view, setView] = useState('login')
-
+  const [viewLogin, setViewLogin] = useState(true)
+  const navigate = useNavigate()
   function handleCreateAccount() {
-    setView('createAccount')
+    setViewLogin(false)
+    navigate('create-account')
   }
 
   function handleLogIn() {
-    setView('login')
+    setViewLogin(true)
+    navigate('login')
   }
 
   function handleAuthenticated() {
-    setView('home')
+    navigate('/')
   }
 
   function registerUser() {
-    setView('login')
+    setViewLogin(true)
+    navigate('login')
   }
 
   const [feedback, setFeedback] = useState()
@@ -32,13 +36,14 @@ function App() {
   }
 
   return <Context.Provider value = {{alert: setFeedback, logOut: handleLogIn}}>
-  {view === 'login' && <Login 
-    onAuthenticated={handleAuthenticated} 
-    onChangeCreatteAccount = {handleCreateAccount} />}
-  {view === 'createAccount' && <CreateAccount 
-    onChangeLogin = {handleLogIn} 
-    onRegisterUser = {registerUser}/>}
-  {view === 'home' && <Home sendOnBackLogin = {handleLogIn}/>}
+    <Routes>
+        <Route key={'login'} path='/login' element={ sessionStorage.userId ? <Navigate to='/'/> : <Login onAuthenticated={handleAuthenticated} 
+        onChangeCreatteAccount={handleCreateAccount}/>}/>
+        <Route key={'create-account'} path='/create-account' element={<CreateAccount onChangeLogin = {handleLogIn} 
+        onRegisterUser = {registerUser}/>}/>
+        <Route key={'home'} path='/*' element={sessionStorage ? <Home sendOnBackLogin = {handleLogIn}/> : <Navigate to='login'/>}/>
+    </Routes>
+  
   {feedback && <Alert message = {feedback} onAccept = {handleAcceptFeedback}/>}
 </Context.Provider> 
 }

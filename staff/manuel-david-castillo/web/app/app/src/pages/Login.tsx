@@ -1,14 +1,11 @@
 import { authenticateUser } from "../logic"
 import { useContext } from "react";
 import Context from "./Context";
+import {Link, useNavigate} from 'react-router-dom'
 
 export default function Login(props: any) {
     const { alert } = useContext(Context)
-
-    function changeCreateAccount() {
-
-        props.onChangeCreatteAccount()
-    }
+    const navigate = useNavigate()
 
     function handleSubmit(event: any) {
         event.preventDefault();
@@ -21,7 +18,7 @@ export default function Login(props: any) {
 
             sessionStorage.userId = userId
 
-            props.onAuthenticated()
+            navigate('/')
         } catch (error: any) {
             alert(error.message)
         }
@@ -41,6 +38,9 @@ export default function Login(props: any) {
         <button className="button">login</button>
         
       </form>
-      <a onClick={changeCreateAccount} href="#">Create account</a>
+      
+        <Link to='/create-account'>Create-account</Link>
+     
+      {/* <a onClick={changeCreateAccount} href="#">Create account</a> */}
     </div>
 }

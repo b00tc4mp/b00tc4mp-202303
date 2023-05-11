@@ -1,15 +1,11 @@
 import { useContext } from "react";
 import { registerUser } from "../logic";
 import Context from "./Context";
+import {Link, useNavigate} from 'react-router-dom'
 
 export default function CreateAccount(props:any) {
   const {alert} = useContext(Context)
-
-    function changeLogin() {
-
-        props.onChangeLogin()
-    }
-
+  const navigate = useNavigate()
     function createAccount(event: any) {
         event.preventDefault();
 
@@ -20,7 +16,7 @@ export default function CreateAccount(props:any) {
         try {
             registerUser(name, email, password)
 
-            props.onRegisterUser()
+            navigate('/login')
         } catch (error: any) {
             alert(error.message)
         }
@@ -41,7 +37,6 @@ export default function CreateAccount(props:any) {
 
         <button className="button">register</button>
       </form>
-
-      <a onClick={changeLogin} href="#">Go to log-in</a>
+      <Link to='/login' >Go to log-in</Link>
     </div>
 }

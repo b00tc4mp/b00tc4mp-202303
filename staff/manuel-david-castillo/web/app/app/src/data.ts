@@ -4,6 +4,7 @@ export type User = {
   name: string;
   email: string;
   password: string;
+  favs: Array<string>;
 }
 
 export type Post = {
@@ -21,6 +22,7 @@ const user: User = {
   name: "Pepito Grillo",
   email: "pepito@grillo.com",
   password: "123123123",
+  favs: [],
 };
 
 users.push(user);

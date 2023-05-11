@@ -1,14 +1,15 @@
 import NewPost from "../components/NewPost"
 import UpdatePassword from "../components/UpdatePassword"
-import LogOut from "../components/BackLogin"
+import LogOut from "../components/LogOut"
 import EditePost from "../components/EditPost"
 import DeletePost from "../components/DeletePost"
 import { useState } from "react"
 import { posts } from "../data"
+import {Routes, Route, Navigate, useNavigate, Link} from 'react-router-dom'
 
 
 function HomePage (props: any) {
-
+  const navigate = useNavigate()
   const [viewUpdatePassword, setViewUpdatePassword] = useState(false) 
 
   function handleUpdatePasswordClick() {
@@ -19,9 +20,9 @@ function HomePage (props: any) {
     setViewUpdatePassword(false)
   }
 
-  const [viewBackLogin, setViewBackLogin] = useState(false)
+  const [viewLogout, setViewBackLogin] = useState(false)
 
-  function handleBackLogin() {
+  function handleLogout() {
     setViewBackLogin(true)
   }
 
@@ -73,17 +74,18 @@ function HomePage (props: any) {
   }
   
   document.body.style.overflow = (viewEditPost || viewNewPost || viewRemovePost ||
-     viewUpdatePassword || viewBackLogin) ? 'hidden' : 'auto'
+     viewUpdatePassword || viewLogout) ? 'hidden' : 'auto'
 
   return <div className="home page">
     <header className="home-header">
       <h1 className="home-title">Hola home!!</h1>
 
       <nav>
-        <a onClick={handleUpdatePasswordClick} href="#" className="nav-profile nav-link">Update Password</a>
+        
+        <Link to={'/profile'} className="nav-profile nav-link">Profile</Link>
       </nav>
       <nav>
-        <a onClick={() => handleBackLogin()} href="#" className="nav-profile nav-link">Back Log-in</a>
+        <button className="nav-profile nav-link" onClick={handleLogout}>Logout</button>
       </nav>
     </header>
 
@@ -102,8 +104,21 @@ function HomePage (props: any) {
       </ul>
     </div> 
 
+    {/* <Routes>
+      
+      <Route key={'logout'} path="/logout" element={<LogOut/>}/>
+      <Route key={'new-post'} path="/new-post" element={<NewPost/>}/>
+      <Route key={'edite-post'} path="/edite-post" element={<EditePost/>}/>
+      <Route key={'delete-post'} path="/delete-post" element={<DeletePost/>}/>
+    </Routes> */}
+    
+  <Routes>
+    <Route key={'profile'} path="/profile" element={<UpdatePassword/>}/>
+  </Routes>
+    
+
     {viewUpdatePassword && <UpdatePassword onBack = {hideUpdatePasswordClick}/>}
-    {viewBackLogin && <LogOut onBackHome = {hideBackLogin}/>}
+    {viewLogout && <LogOut onBackHome = {hideBackLogin}/>}
     {viewNewPost && <NewPost onBackNewPost = {hideNewPostButton}/> }
     {viewEditPost && <EditePost onBackEditPost = {hideEditPostButton}/>}
     {viewRemovePost && <DeletePost onBackRemovePost = {hideRemovePostButton}/>}

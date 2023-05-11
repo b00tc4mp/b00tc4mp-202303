@@ -48,6 +48,7 @@ export function registerUser(name: string, email: string, password: string) {
     name: name,
     email: email,
     password: password,
+    favs: [],
   };
 
   users.push(user);
@@ -135,4 +136,12 @@ export function createPost(userId: string, text: string) {
   }
 
   posts.push(post)
+}
+
+export function toggleFavPost(userId: string, postId: string) {
+
+}
+
+export function retrieveFavPosts(userId: string) {
+
 }

@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { updateUserPassword } from "../logic";
 import Context from "../pages/Context";
+import { Link } from "react-router-dom";
 
 export default function UpdatePassword (props: any) {
   const { alert } = useContext(Context)
@@ -45,7 +46,7 @@ export default function UpdatePassword (props: any) {
           placeholder="new password confirmation"
         />
         <button className="button">Update password</button>
-        <a onClick={props.onBack} className="anchor" href="#">Back</a>
+        <Link to={'/*'} className="anchor" >Back</Link>
       </form>
     </div>
 }
