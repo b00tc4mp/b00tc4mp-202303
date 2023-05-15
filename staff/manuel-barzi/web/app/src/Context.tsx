@@ -1,5 +1,5 @@
 import { createContext } from 'react'
 
-const Context = createContext({})
+export type TContext = { alert: Function, toggleTheme: Function }
 
-export default Context
+export const Context = createContext<TContext>({ alert: function () { }, toggleTheme: function () { } })

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Login from './pages/Login'
 import Home from './pages/Home'
 import Alert from './components/Alert'
-import { Context } from './Context'
+import Context from './Context'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 
 function App() {

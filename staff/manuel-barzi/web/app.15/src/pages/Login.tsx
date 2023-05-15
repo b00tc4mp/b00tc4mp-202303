@@ -1,15 +1,11 @@
-import authenticateUser from '../logic/authenticateUser'
+import { authenticateUser } from '../logic'
 import { useContext } from 'react'
-import { Context, TContext } from '../Context'
+import Context from '../Context'
 
-type Props = {
-    onAuthenticated: Function
-}
+export default function Login(props) {
+    const { alert } = useContext(Context)
 
-export default function Login(props: Props) {
-    const { alert } = useContext<TContext>(Context)
-
-    function handleSubmit(event: Event & { target: { email: HTMLInputElement, password: HTMLInputElement } }) {
+    function handleSubmit(event) {
         event.preventDefault()
 
         const email = event.target.email.value
@@ -21,7 +17,7 @@ export default function Login(props: Props) {
             sessionStorage.userId = userId
 
             props.onAuthenticated()
-        } catch (error: any) {
+        } catch (error) {
             alert(error.message)
         }
     }
