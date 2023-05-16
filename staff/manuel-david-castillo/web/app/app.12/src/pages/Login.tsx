@@ -25,7 +25,7 @@ export default function Login(props: any) {
     }
 
     return <div className="page">
-      <h1>Log-in</h1>
+      <h1>arba</h1>
       <form onSubmit={handleSubmit} className="form">
         <input  className="input" type="email" name="email" placeholder="email" />
         <input
@@ -41,5 +41,6 @@ export default function Login(props: any) {
       
         <Link to='/create-account'>Create-account</Link>
      
+      {/* <a onClick={changeCreateAccount} href="#">Create account</a> */}
     </div>
 }

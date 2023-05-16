@@ -1,4 +1,4 @@
-import { findUserByEmail, users, User, findUserById, posts, Post, findPostById } from "./data";
+import { findUserByEmail, users, User, findUserById, posts, Post } from "./data";
 
 export function authenticateUser(email: string, password: string): string {
   if (typeof email !== "string") throw new Error("email is not a string");
@@ -48,7 +48,6 @@ export function registerUser(name: string, email: string, password: string) {
     name: name,
     email: email,
     password: password,
-    favs: [],
   };
 
   users.push(user);
@@ -136,57 +135,4 @@ export function createPost(userId: string, text: string) {
   }
 
   posts.push(post)
-}
-
-export function retrievePosts(userId: string) {
-  let user: User | null = findUserById(userId);
-  if (!user) throw new Error('user not found')
-  // TODO check user exists, if not then error
-
-  return posts
-}
-
-// TODO rename to toggleFavPost
-export function checkFavPost(userId: string, postId: string) {
-  let user: User | null = findUserById(userId);
-
-  if (user) {
-    for (let i = 0; i < user.favs.length; i++) {
-      if (user.favs[i] === postId) {
-        return true
-      }
-    }
-  }
-  return false
-}
-
-export function retrieveFavPosts(userId: string) {
-
-  let user: User | null = findUserById(userId);
-  let favPosts: Array<Post> = [];
-
-  if (user) {
-    for (let i = 0; i < user.favs.length; i++) {
-      favPosts.push(findPostById(user.favs[i])!)
-    }
-  }
-
-  return favPosts
-}
-
-export function addFavoritePost(userId: string, postId: string) {
-  let user: User | null = findUserById(userId);
-  if (!user) throw new Error('user not found');
-  if (user) {
-    user.favs.push(postId)
-  }
-
-}
-
-export function deleteFavoritePost(userId: string, postId: string) {
-  let user: User | null = findUserById(userId);
-  if (!user) throw new Error('user not found');
-
-  const index = user.favs.indexOf(postId)
-  user.favs.splice(index, 1)
 }

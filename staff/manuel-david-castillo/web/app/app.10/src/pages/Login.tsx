@@ -1,13 +1,12 @@
 import { authenticateUser } from "../logic"
-import { useContext } from "react";
-import Context from "./Context";
-import {Link, useNavigate} from 'react-router-dom'
 
-export default function Login(props: any) {
-    const { alert } = useContext(Context)
-    const navigate = useNavigate()
+export default function Login(props) {
+    function changeCreateAccount() {
 
-    function handleSubmit(event: any) {
+        props.onChangeCreatteAccount()
+    }
+
+    function handleSubmit(event) {
         event.preventDefault();
 
         const email = event.target.email.value
@@ -18,8 +17,8 @@ export default function Login(props: any) {
 
             sessionStorage.userId = userId
 
-            navigate('/')
-        } catch (error: any) {
+            props.onAuthenticated()
+        } catch (error) {
             alert(error.message)
         }
     }
@@ -38,8 +37,6 @@ export default function Login(props: any) {
         <button className="button">login</button>
         
       </form>
-      
-        <Link to='/create-account'>Create-account</Link>
-     
+      <a onClick={changeCreateAccount} href="#">Create account</a>
     </div>
 }

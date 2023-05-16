@@ -37,9 +37,11 @@ function App() {
 
   return <Context.Provider value = {{alert: setFeedback, logOut: handleLogIn}}>
     <Routes>
-        <Route key={'login'} path='/login' element={ sessionStorage.userId ? <Navigate to='/'/> : <Login onAuthenticated={handleAuthenticated}/>}/>
-        <Route key={'create-account'} path='/create-account' element={<CreateAccount onRegisterUser = {registerUser}/>}/>
-        <Route key={'home'} path='/*' element={sessionStorage ? <Home/> : <Navigate to='login'/>}/>
+        <Route key={'login'} path='/login' element={ sessionStorage.userId ? <Navigate to='/'/> : <Login onAuthenticated={handleAuthenticated} 
+        onChangeCreatteAccount={handleCreateAccount}/>}/>
+        <Route key={'create-account'} path='/create-account' element={<CreateAccount onChangeLogin = {handleLogIn} 
+        onRegisterUser = {registerUser}/>}/>
+        <Route key={'home'} path='/*' element={sessionStorage ? <Home sendOnBackLogin = {handleLogIn}/> : <Navigate to='login'/>}/>
     </Routes>
   
   {feedback && <Alert message = {feedback} onAccept = {handleAcceptFeedback}/>}

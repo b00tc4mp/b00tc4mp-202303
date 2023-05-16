@@ -1,11 +1,13 @@
-import {useNavigate} from 'react-router-dom'
+import { useContext } from "react"
+import Context from "../pages/Context"
+import {useNavigate, Link} from 'react-router-dom'
 
 export default function LogOut(props: any) {
     const navigate = useNavigate()
     function handleLogOut() {
         delete sessionStorage.userId
         
-        navigate('/login')
+        navigate('login')
     }
 
     return <div className="create-post">
@@ -13,7 +15,7 @@ export default function LogOut(props: any) {
             <p>Do you want to return to login?</p>
             <div>
                 <button onClick={handleLogOut} className="button">Yes</button>
-                <button onClick={props.onBackHome} className='button'>No</button>
+                <Link to='/'>No</Link>
             </div>
         </div>
     </div>

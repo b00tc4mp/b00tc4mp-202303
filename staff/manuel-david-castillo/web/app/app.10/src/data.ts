@@ -4,7 +4,6 @@ export type User = {
   name: string;
   email: string;
   password: string;
-  favs: Array<string>;
 }
 
 export type Post = {
@@ -22,7 +21,6 @@ const user: User = {
   name: "Pepito Grillo",
   email: "pepito@grillo.com",
   password: "123123123",
-  favs: [],
 };
 
 users.push(user);
@@ -41,7 +39,6 @@ const user2: User = {
   name: "Peter Pan",
   email: "peter@pan.com",
   password: "123123123",
-  favs: ['post-1', 'post-2'],
 };
 
 users.push(user2);
@@ -60,7 +57,6 @@ const user3: User = {
   name: "Wendy Darling",
   email: "wendy@darling.com",
   password: "123123123",
-  favs: [],
 };
 
 users.push(user3);
@@ -109,7 +105,7 @@ export function findUserById(id: String | null): User | null {
 }
 
 export function findPostById(postId: String): Post | null {
-  for (var i = 0; i < posts.length; i++) {
+  for (var i = 0; i < users.length; i++) {
     let post = posts[i];
 
     if (post.id === postId) {
