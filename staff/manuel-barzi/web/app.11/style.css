@@ -1,0 +1,105 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form {
+    background-color: skyblue; 
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    align-items: center;
+}
+
+.input {
+    border: 0;
+    border-radius: 5px;
+    width: 50%;
+}
+
+.button {
+    background-color: plum;
+    border: 0;
+    border-radius: 5px;
+    width: 50%;
+}
+
+.page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+.off {
+    display: none !important;
+}
+
+/* components */
+
+.home {
+    margin-top: 4rem;
+}
+
+.home-header {
+    background-color: black;
+    height: 4rem;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.home-title {
+    color: white;
+}
+
+.nav-link {
+    color: white;
+}
+
+.home-footer {
+    background-color: black;
+    height: 4rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-post {
+    position: absolute;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.create-post-body {
+    background-color: white;
+    padding: 1rem;
+}
+
+.create-post-form {
+    display: flex;
+    flex-direction: column;
+}
