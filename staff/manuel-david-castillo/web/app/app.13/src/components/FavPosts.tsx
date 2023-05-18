@@ -1,16 +1,16 @@
-import toggleFavPost from "../logic/toggleFavPost";
+import { retrieveFavPosts } from "../logic";
 import { useState } from "react";
 import EditePost from "./EditPost";
 import DeletePost from "./DeletePost";
-import { PostData } from "../data";
+import { Post } from "../data";
 
 
 
 function FavPosts() {
-let favPosts: Array<PostData> = [];
+let favPosts: Array<Post> = [];
 
   try {
-    favPosts = toggleFavPost(sessionStorage.userId);
+    favPosts = retrieveFavPosts(sessionStorage.userId);
 
   } catch (error: any) {
     alert(error.message)

@@ -1,4 +1,4 @@
-import authenticateUser from "../logic/authenticateUser";
+import { authenticateUser } from "../logic"
 import { useContext } from "react";
 import Context from "./Context";
 import {Link, useNavigate} from 'react-router-dom'

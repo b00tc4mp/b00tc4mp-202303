@@ -1,10 +1,11 @@
 import NewPost from "../components/NewPost"
 import UpdatePassword from "../components/Profile"
 import LogOut from "../components/LogOut"
-import FavPosts from "../components/FavPosts"
-import Posts from '../components/Posts'
 import { useState } from "react"
 import {Routes, Route, Link} from 'react-router-dom'
+import FavPosts from "../components/FavPosts"
+import Posts from '../components/Posts'
+
 
 function HomePage (props: any) {
   const [viewLogout, setViewBackLogin] = useState(false)

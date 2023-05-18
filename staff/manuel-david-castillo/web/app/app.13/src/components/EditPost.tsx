@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import editPost from "../logic/editPost";
+import { editPost } from "../logic"
 import Context from "../pages/Context";
 
 export default function EditePost(props: any) {

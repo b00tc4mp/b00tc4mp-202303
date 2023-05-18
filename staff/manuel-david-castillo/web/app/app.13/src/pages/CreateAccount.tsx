@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import registerUser from "../logic/registerUser";
+import { registerUser } from "../logic";
 import Context from "./Context";
 import {Link, useNavigate} from 'react-router-dom'
 

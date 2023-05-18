@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import removePost from "../logic/removePost";
+import { removePost } from "../logic"
 import Context from "../pages/Context";
 
 export default function DeletePost(props: any) {

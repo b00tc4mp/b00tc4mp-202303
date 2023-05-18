@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import updateUserPassword from "../logic/updateUserPassword";
+import { updateUserPassword } from "../logic";
 import Context from "../pages/Context";
 import { Link } from "react-router-dom";
 

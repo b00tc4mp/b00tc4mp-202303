@@ -1,15 +1,27 @@
-import { checkFavPost, retrievePosts } from '../logic'
+import checkFavPost from '../logic/checkFavPost'
 import { useState } from 'react'
-import { addFavoritePost, deleteFavoritePost } from '../logic'
-import { Post } from '../data'
+import addFavoritePost from '../logic/addFavoritePost'
 import EditePost from './EditPost'
 import DeletePost from './DeletePost'
+import deleteFavoritePost from '../logic/deleteFavoritePost'
+import retrievePosts from '../logic/retrievePosts'
+import toggleFavPost from '../logic/toggleFavPost'
 
 export default function Posts() {
-  const [viewUpdatePassword, setViewUpdatePassword] = useState(false) 
+  const [viewUpdatePassword, setViewUpdatePassword] = useState(false)
   const [viewRemovePost, setViewRemovePost] = useState(false)
   const [viewEditPost, setViewEditPost] = useState(false)
-  const [favPost, setFavPost] = useState(false)
+
+
+  let _posts
+
+  try {
+    _posts = retrievePosts(sessionStorage.userId)
+  } catch (error: any) {
+    alert(error.message)
+  }
+
+  const [posts, setposts] = useState(_posts)
 
   /* Eliminar post */
   function handleRemovePostButton(postId: string) {
@@ -40,68 +52,45 @@ export default function Posts() {
       return false
     }
   }
-  
-  /* Añadir un post a favoritos */
-  function addFavPost(postId: string) {
-    const userId = sessionStorage.userId
-
-    try {
-      addFavoritePost(userId ,postId); 
-
-    } catch (error: any) {
-      alert(error.message)
-    }
-   }
-
-   function deleteFavPost(postId: string) {
-    const userId = sessionStorage.userId
-
-    try {
-      deleteFavoritePost(userId ,postId); 
-
-    } catch (error: any) {
-      alert(error.message)
-    }
-   }
 
   /* Hacer que se bloque la pantalla */
   document.body.style.overflow = (viewEditPost || viewRemovePost ||
-     viewUpdatePassword) ? 'hidden' : 'auto'
-
-
-    let posts: Array<Post>
-
-    try {
-      posts = retrievePosts(sessionStorage.userId)
-    } catch(error: any) {
-      alert(error.message)
-    }
+    viewUpdatePassword) ? 'hidden' : 'auto'
 
   function handleFavPost(postId: string) {
     try {
       return checkFavPost(sessionStorage.userId, postId);
-    } catch(error: any) {
+    } catch (error: any) {
       alert(error.message)
     }
   }
 
-    return <ul className="ul-post">
-        {posts!.map(post => <li className="post">
-          <p className="post-name">{post.user}</p>
-          <p className="post-name">{post.text}</p>
-          <time className="post-name">{post.date.toLocaleString()}</time>
-          <div> 
-            {postOfUser(post.user) && <button onClick={() => handleEditPostButton(post.id, post.text)} className="button">Edit</button>}
-            {postOfUser(post.user) && <button onClick={() => handleRemovePostButton(post.id)} className="button">Remove</button>}
-            {handleFavPost(post.id) && <button onClick={() => deleteFavPost(post.id)} className="button">Quite fav</button>}
-            {!handleFavPost(post.id) && <button onClick={() => addFavPost(post.id)} className="button">Add fav</button>}
-          </div> 
-          
-        </li>)}
+  function handleToggleFavPost(postId: string) {
+    try {
+      toggleFavPost(sessionStorage.userId, postId)
 
-        {viewEditPost && <EditePost onBackEditPost = {hideEditPostButton}/>}
-        {viewRemovePost && <DeletePost onBackRemovePost = {hideRemovePostButton}/>}
-      </ul>
+      const posts = retrievePosts(sessionStorage.userId)
 
+      setposts(posts)
+    } catch (error: any) {
+      alert(error.message)
+    }
+  }
 
+  return <ul className="ul-post">
+    {posts!.map(post => <li className="post">
+      <p className="post-name">{post.user}</p>
+      <p className="post-name">{post.text}</p>
+      <time className="post-name">{post.date.toLocaleString()}</time>
+      <div>
+        {postOfUser(post.user) && <button onClick={() => handleEditPostButton(post.id, post.text)} className="button">Edit</button>}
+        {postOfUser(post.user) && <button onClick={() => handleRemovePostButton(post.id)} className="button">Remove</button>}
+        <button onClick={() => handleToggleFavPost(post.id)} className="button">{post.fav ? '⭐' : '☆'}</button>
+      </div>
+
+    </li>)}
+
+    {viewEditPost && <EditePost onBackEditPost={hideEditPostButton} />}
+    {viewRemovePost && <DeletePost onBackRemovePost={hideRemovePostButton} />}
+  </ul>
 }

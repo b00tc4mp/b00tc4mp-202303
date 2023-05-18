@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import createPost from "../logic/createPost";
+import { createPost } from "../logic";
 import Context from "../pages/Context";
 
 export default function NewPost(props: any) {
