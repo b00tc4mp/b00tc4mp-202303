@@ -1,41 +1,41 @@
-import authenticateUser from '../logic/authenticateUser'
+import registerUser from '../logic/registerUser'
 import { useContext } from 'react'
 import { Context, TContext } from '../Context'
 import { useNavigate, Link } from 'react-router-dom'
 
-export default function Login() {
+export default function Register() {
     const { alert } = useContext<TContext>(Context)
     const navigate = useNavigate()
 
-    const handleSubmit = (event: Event & { target: { email: HTMLInputElement, password: HTMLInputElement } }) => {
+    function handleSubmit(event: Event & { target: { name: HTMLInputElement, email: HTMLInputElement, password: HTMLInputElement } }) {
         event.preventDefault()
 
+        const name = event.target.name.value
         const email = event.target.email.value
         const password = event.target.password.value
 
         try {
-            const userId = authenticateUser(email, password)
+            const userId = registerUser(name, email, password)
 
             sessionStorage.userId = userId
 
-            navigate('/')
+            navigate('/login')
         } catch (error: any) {
             alert(error.message)
         }
     }
 
-    console.log('Login -> render')
-
     return <div className="login page">
-        <h1>Login</h1>
+        <h1>Register</h1>
 
         <form className="form" onSubmit={handleSubmit}>
+            <input className="input" type="name" name="name" placeholder="name"></input>
             <input className="input" type="email" name="email" placeholder="email"></input>
             <input className="input" type="password" name="password" placeholder="password"></input>
 
-            <button className="button">Login</button>
+            <button className="button">Register</button>
         </form>
 
-        <p>Go to <Link to="/register">Register</Link></p>
+        <p>Go to <Link to="/login">Login</Link></p>
     </div>
 }

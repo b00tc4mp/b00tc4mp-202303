@@ -1,13 +1,15 @@
 import authenticateUser from '../logic/authenticateUser'
 import { useContext } from 'react'
 import { Context, TContext } from '../Context'
-import { useNavigate, Link } from 'react-router-dom'
 
-export default function Login() {
+type Props = {
+    onAuthenticated: Function
+}
+
+export default function Login(props: Props) {
     const { alert } = useContext<TContext>(Context)
-    const navigate = useNavigate()
 
-    const handleSubmit = (event: Event & { target: { email: HTMLInputElement, password: HTMLInputElement } }) => {
+    function handleSubmit(event: Event & { target: { email: HTMLInputElement, password: HTMLInputElement } }) {
         event.preventDefault()
 
         const email = event.target.email.value
@@ -18,24 +20,22 @@ export default function Login() {
 
             sessionStorage.userId = userId
 
-            navigate('/')
+            props.onAuthenticated()
         } catch (error: any) {
             alert(error.message)
         }
     }
 
-    console.log('Login -> render')
-
     return <div className="login page">
-        <h1>Login</h1>
+        <h1>login</h1>
 
         <form className="form" onSubmit={handleSubmit}>
             <input className="input" type="email" name="email" placeholder="email"></input>
             <input className="input" type="password" name="password" placeholder="password"></input>
 
-            <button className="button">Login</button>
+            <button className="button">login</button>
         </form>
 
-        <p>Go to <Link to="/register">Register</Link></p>
+        <p>Go to <a href="">register</a></p>
     </div>
 }

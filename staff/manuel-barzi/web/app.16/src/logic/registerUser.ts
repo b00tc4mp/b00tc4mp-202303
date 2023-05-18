@@ -1,4 +1,4 @@
-import { UserData } from '../data'
+import { UserData, users } from '../data'
 import findUserByEmail from './helpers/findByUserEmail'
 
 export default function registerUser(name: string, email: string, password: string) {
@@ -15,8 +15,6 @@ export default function registerUser(name: string, email: string, password: stri
         throw new Error('user already exists')
 
     let id: string
-
-    const users = JSON.parse(localStorage.users)
 
     const lastUser = users[users.length - 1]
 
@@ -35,6 +33,4 @@ export default function registerUser(name: string, email: string, password: stri
     }
 
     users.push(user)
-
-    localStorage.users = JSON.stringify(users)
 }

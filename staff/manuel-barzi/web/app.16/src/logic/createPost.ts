@@ -1,9 +1,7 @@
-import { PostData } from '../data'
+import { posts, PostData } from '../data'
 
 export default function createPost(userId: string, text: string) {
     let id: string
-
-    const posts = JSON.parse(localStorage.posts)
 
     const lastPost = posts[posts.length - 1]
 
@@ -21,6 +19,4 @@ export default function createPost(userId: string, text: string) {
     }
 
     posts.push(post)
-
-    localStorage.posts = JSON.stringify(posts)
 }

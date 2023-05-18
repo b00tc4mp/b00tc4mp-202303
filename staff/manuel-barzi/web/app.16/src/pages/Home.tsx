@@ -47,17 +47,6 @@ export default function Home() {
             alert(error.message)
         }
     }
-    
-    const handlePostCreated = () => {
-        try {
-            const posts = retrievePosts(sessionStorage.userId)
-            
-            setPosts(posts)
-            setCreatePostVisible(false)
-        } catch (error) {
-            alert(error.message)
-        }
-    }
 
     return <div className="home page">
         <header className="home-header">
@@ -83,7 +72,7 @@ export default function Home() {
             </ul>
         </div>
 
-        {createPostVisible && <CreatePost onCancel={handleCreatePostHide} onPostCreated={handlePostCreated} />}
+        {createPostVisible && <CreatePost onCancel={handleCreatePostHide} />}
 
         <footer className="home-footer">
             <button className="create-post-button" onClick={handleCreatePostShow}>+</button>
