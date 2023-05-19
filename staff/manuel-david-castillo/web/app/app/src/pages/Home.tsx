@@ -4,31 +4,45 @@ import LogOut from "../components/LogOut"
 import FavPosts from "../components/FavPosts"
 import Posts from '../components/Posts'
 import { useState } from "react"
-import {Routes, Route, Link} from 'react-router-dom'
+import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 
-function HomePage (props: any) {
-  const [viewLogout, setViewBackLogin] = useState(false)
+function HomePage() {
+  const navigate = useNavigate();
+
+  /* Ver y ocultar Logout*/
+  const [viewLogout, setViewLogout] = useState(false)
 
   function handleLogout() {
-    setViewBackLogin(true)
+    setViewLogout(true)
   }
 
   function hideBackLogin() {
-    setViewBackLogin(false)
+    setViewLogout(false)
   }
 
-  const [viewNewPost, setViewNewPost] = useState(false)
+  /* Ver y ocultar la pestaña nuevo post */
+  const [newPostVisible, setNewPostVisible] = useState(false)
+  const [lastUpdate, setLastUpdate] = useState<number | null>(null)
 
-  function handleNewPostButton() {
-    setViewNewPost(true)
+  function handleShowNewPost() {
+    setNewPostVisible(true)
   }
 
-  function hideNewPostButton() {
-    setViewNewPost(false)
+  function handleHideNewPost() {
+    setNewPostVisible(false)
+
+    navigate('/') /* Esto no funciona */
   }
 
-  document.body.style.overflow = (viewLogout || viewNewPost) ? 'hidden' : 'auto'
+  function handlePostCreated() {
+    setLastUpdate(Date.now())
+    handleHideNewPost()
+  }
 
+  /* Bloque la pantalla */
+  document.body.style.overflow = (viewLogout || newPostVisible) ? 'hidden' : 'auto'
+
+  /* Pinta el dom */
   return <div className="home page">
     <header className="home-header">
       <h1 className="home-title"><Link to="/">Home</Link></h1>
@@ -42,24 +56,20 @@ function HomePage (props: any) {
         <button className="nav-profile nav-link" onClick={handleLogout}>Logout</button>
       </nav>
     </header>
-    
-  <Routes>
-    <Route path="/" element={<Posts/>}/>
-    <Route path="/fav-posts" element={<FavPosts/>}/>
-    <Route path="/profile" element={<UpdatePassword/>}/>
-  </Routes>
-    
-    {viewLogout && <LogOut onBackHome = {hideBackLogin}/>}
-    {viewNewPost && <NewPost onBackNewPost = {hideNewPostButton}/> }
-    
+
+    <Routes>
+      <Route path="/" element={<Posts lastUpdate={lastUpdate} />} />
+      <Route path="/fav-posts" element={<FavPosts />} />
+      <Route path="/profile" element={<UpdatePassword />} />
+    </Routes>
+
+    {viewLogout && <LogOut onBackHome={hideBackLogin} />}
+    {newPostVisible && <NewPost onBackNewPost={handleHideNewPost} onPostCreated={handlePostCreated} />}
+
     <footer className="home-footer">
-            <button onClick={handleNewPostButton} className="create-post-button" >New post!!</button>
-        </footer>
+      <button onClick={handleShowNewPost} className="create-post-button" >New post!!</button>
+    </footer>
   </div>
-
-
-    
-
 }
 
 export default HomePage

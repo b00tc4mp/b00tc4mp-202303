@@ -1,5 +1,5 @@
 import { User } from "../data";
-import Post from "./types/PostType";
+import Post from "./types/Post";
 import findUserById from "./helpers/findUserById";
 
 export default function toggleFavPost(userId: string, postId: string) {

@@ -1,17 +1,13 @@
-import checkFavPost from '../logic/checkFavPost'
-import { useState } from 'react'
-import addFavoritePost from '../logic/addFavoritePost'
+import { useState, useEffect } from 'react'
 import EditePost from './EditPost'
 import DeletePost from './DeletePost'
-import deleteFavoritePost from '../logic/deleteFavoritePost'
 import retrievePosts from '../logic/retrievePosts'
 import toggleFavPost from '../logic/toggleFavPost'
 
-export default function Posts() {
+export default function Posts({ lastUpdate }: { lastUpdate: number | null }): JSX.Element {
   const [viewUpdatePassword, setViewUpdatePassword] = useState(false)
   const [viewRemovePost, setViewRemovePost] = useState(false)
   const [viewEditPost, setViewEditPost] = useState(false)
-
 
   let _posts
 
@@ -21,7 +17,16 @@ export default function Posts() {
     alert(error.message)
   }
 
-  const [posts, setposts] = useState(_posts)
+  const [posts, setPosts] = useState(_posts)
+
+  useEffect(() => {
+    try {
+      const posts = retrievePosts(sessionStorage.userId)
+      setPosts(posts)
+    } catch (error: any) {
+      alert(error.message)
+    }
+  }, [lastUpdate])
 
   /* Eliminar post */
   function handleRemovePostButton(postId: string) {
@@ -31,6 +36,9 @@ export default function Posts() {
   }
   function hideRemovePostButton() {
     setViewRemovePost(false)
+
+    const posts = retrievePosts(sessionStorage.userId)
+    setPosts(posts)
   }
 
   /* Editar post */
@@ -42,6 +50,9 @@ export default function Posts() {
   }
   function hideEditPostButton() {
     setViewEditPost(false)
+
+    const posts = retrievePosts(sessionStorage.userId)
+    setPosts(posts)
   }
 
   /* Comprobar si el post es del usuario */
@@ -53,30 +64,26 @@ export default function Posts() {
     }
   }
 
-  /* Hacer que se bloque la pantalla */
-  document.body.style.overflow = (viewEditPost || viewRemovePost ||
-    viewUpdatePassword) ? 'hidden' : 'auto'
-
-  function handleFavPost(postId: string) {
-    try {
-      return checkFavPost(sessionStorage.userId, postId);
-    } catch (error: any) {
-      alert(error.message)
-    }
-  }
-
+  /* Pone y quita los fav */
   function handleToggleFavPost(postId: string) {
     try {
       toggleFavPost(sessionStorage.userId, postId)
 
       const posts = retrievePosts(sessionStorage.userId)
 
-      setposts(posts)
+      setPosts(posts)
     } catch (error: any) {
       alert(error.message)
     }
   }
 
+  /* Hacer que se bloque la pantalla */
+  document.body.style.overflow = (viewEditPost || viewRemovePost ||
+    viewUpdatePassword) ? 'hidden' : 'auto'
+
+  console.log('Posts -> render')
+
+  /* Pinta el dom */
   return <ul className="ul-post">
     {posts!.map(post => <li className="post">
       <p className="post-name">{post.user}</p>
@@ -92,5 +99,6 @@ export default function Posts() {
 
     {viewEditPost && <EditePost onBackEditPost={hideEditPostButton} />}
     {viewRemovePost && <DeletePost onBackRemovePost={hideRemovePostButton} />}
+
   </ul>
 }
