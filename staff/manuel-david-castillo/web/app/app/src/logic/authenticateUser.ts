@@ -1,5 +1,5 @@
-import { User } from "../data";
-import findUserByEmail from "./helpers/findByUserEmail";
+import { UserData } from "../data";
+import findUserByEmail from "./helpers/findUserByEmail";
 
 export default function authenticateUser(email: string, password: string): string {
     if (typeof email !== "string") throw new Error("email is not a string");
@@ -7,7 +7,7 @@ export default function authenticateUser(email: string, password: string): strin
     if (typeof password !== "string") throw new Error("password is not string");
     if (!password) throw new Error("password is empty");
 
-    const foundUser: User | null = findUserByEmail(email);
+    const foundUser: UserData | null = findUserByEmail(email);
 
     if (!foundUser) {
         throw new Error("user not found");

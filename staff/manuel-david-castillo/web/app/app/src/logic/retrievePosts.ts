@@ -1,16 +1,15 @@
 import findUserById from "./helpers/findUserById";
-import { User } from "../data";
-import { posts } from "../data";
+import { PostData, UserData } from "../data";
 import Post from "./types/Post";
 
-export default function retrievePosts(userId: string) {
+export default function retrievePosts(userId: string): Post[] {
     if (typeof userId !== 'string') throw new Error('userId is not a string')
     if (!userId) throw new Error('userId is empty')
 
-    const user: User | null = findUserById(userId);
+    const user: UserData | null = findUserById(userId);
     if (!user) throw new Error('user not found')
 
-    let recoveredPosts = posts.map(post => new Post(post, user!.favs.includes(post.id)));
+    const posts = localStorage.posts ? JSON.parse(localStorage.posts) : []
 
-    return recoveredPosts
+    return posts.map(post => new Post(post, user!.favs.includes(post.id), findUserById(post.user)));
 }

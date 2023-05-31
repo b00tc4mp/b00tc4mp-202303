@@ -1,6 +1,5 @@
-import { User } from "../data";
-import findUserByEmail from "./helpers/findByUserEmail";
-import { users } from "../data";
+import { UserData } from "../data";
+import findUserByEmail from "./helpers/findUserByEmail";
 
 export default function registerUser(name: string, email: string, password: string) {
     if (typeof name !== "string") throw new Error("name is not a string");
@@ -10,11 +9,13 @@ export default function registerUser(name: string, email: string, password: stri
     if (typeof password !== "string") throw new Error("password is not a string");
     if (!password) throw new Error("password is empty");
 
-    const foundUser: User | null = findUserByEmail(email);
+    const foundUser: UserData | null = findUserByEmail(email);
 
     if (foundUser) throw new Error("users already exists");
 
     let id: string;
+
+    const users = localStorage.users ? JSON.parse(localStorage.users) : []
 
     const lastUser = users[users.length - 1];
 
@@ -26,13 +27,16 @@ export default function registerUser(name: string, email: string, password: stri
         id = "user-1"
     }
 
-    const user: User = {
+    const user: UserData = {
         id: id,
         name: name,
         email: email,
         password: password,
         favs: [],
+        blocks: []
     };
 
     users.push(user);
+
+    localStorage.users = JSON.stringify(users)
 }

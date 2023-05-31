@@ -1,4 +1,4 @@
-import { User } from "../data";
+import { UserData } from "../data";
 import findUserById from "./helpers/findUserById";
 
 export default function updateUserPassword(
@@ -19,11 +19,20 @@ export default function updateUserPassword(
     if (!newPasswordConfirmation)
         throw new Error("new password confirmation is empty");
 
-    var foundUser: User | null = findUserById(id);
+    const user: UserData | null = findUserById(id);
+    if (!user) throw new Error('user not found')
 
-    if (password !== foundUser!.password) throw new Error("wrong password");
+    const users = JSON.parse(localStorage.users)
+
+    const indexUser = users.findIndex((u: UserData) => u.id === user.id);
+
+    if (password !== user!.password) throw new Error("wrong password");
     if (newPassword !== newPasswordConfirmation)
         throw new Error("different password");
 
-    foundUser!.password = newPassword;
+    user!.password = newPassword;
+
+    users[indexUser] = user
+
+    localStorage.users = JSON.stringify(users)
 }

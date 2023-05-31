@@ -3,23 +3,23 @@ import Post from "../logic/types/Post";
 import EditePost from "./EditPost";
 import DeletePost from "./DeletePost";
 import Block from "./Block";
-import retrieveFavPosts from "../logic/retrieveFavPosts";
+import retrieveMyPosts from "../logic/retrieveMyPosts";
 import toggleFavPost from "../logic/toggleFavPost";
 
-function FavPosts() {
-  /* Lanza los posts */
-  let _favPosts: Post[] = [];
+function MyPosts() {
+  /* Lanza mis posts */
+  let _myPosts: Post[] = [];
 
   try {
-    _favPosts = retrieveFavPosts(sessionStorage.userId)
+    _myPosts = retrieveMyPosts(sessionStorage.userId)
 
   } catch (error: any) {
     alert(error.message)
   }
 
-  const [favPosts, setFavPosts] = useState(_favPosts)
+  const [myPosts, setMyPosts] = useState(_myPosts)
 
-  /* Comprobar si el post es del usuario */
+  /* Comprueba si el post es del usuario */
   const postOfUser = (postId: string | undefined) => postId === sessionStorage.userId
 
   /* Para editar los posts */
@@ -34,7 +34,7 @@ function FavPosts() {
 
   function hideEditPostButton() {
     setViewEditPost(false)
-    setFavPosts(favPosts)
+    setMyPosts(myPosts)
   }
 
   /* Para eliminar los posts */
@@ -48,10 +48,10 @@ function FavPosts() {
 
   function hideRemovePostButton() {
     setViewRemovePost(false)
-    setFavPosts(favPosts)
+    setMyPosts(myPosts)
   }
 
-  /* Bloquear usuarios */
+  /* Bloquear usuario */
   const [viewBlockPost, setViewBlockPost] = useState(false)
 
   function handleUserBlock(userPost: string | undefined) {
@@ -63,8 +63,8 @@ function FavPosts() {
   function hideUserBlock() {
     setViewBlockPost(false)
 
-    const favPosts = retrieveFavPosts(sessionStorage.userId)
-    setFavPosts(favPosts)
+    const posts = retrieveMyPosts(sessionStorage.userId)
+    setMyPosts(posts)
   }
 
   /* Para el poner y quitar fav */
@@ -72,17 +72,19 @@ function FavPosts() {
     try {
       toggleFavPost(sessionStorage.userId, postId)
 
-      const favPosts = retrieveFavPosts(sessionStorage.userId)
+      const favPosts = retrieveMyPosts(sessionStorage.userId)
 
-      setFavPosts(favPosts)
+      setMyPosts(favPosts)
     } catch (error: any) {
       alert(error.message)
     }
   }
 
+  console.log('pinta myposts')
+
   /* Pinta el dom */
   return <ul className="ul-post">
-    {_favPosts.map(post => <li className="post">
+    {_myPosts.map(post => <li className="post">
       <p className="post-name">{post.user?.name}</p>
       <p className="post-name">{post.text}</p>
       <time className="post-name">{post.date.toLocaleString()}</time>
@@ -100,4 +102,4 @@ function FavPosts() {
   </ul>
 }
 
-export default FavPosts;
+export default MyPosts;

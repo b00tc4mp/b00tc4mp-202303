@@ -6,8 +6,15 @@ import Home from './pages/Home'
 import Context from './pages/Context'
 import Alert from './components/Alert'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
+import { PostData, UserData } from './data'
 
 function App() {
+  /* const posts: Array<PostData> = [];
+  localStorage.posts = JSON.stringify(posts)
+
+  const users: Array<User> = [];
+  localStorage.users = JSON.stringify(users) */
+
   const navigate = useNavigate()
 
   const [feedback, setFeedback] = useState()

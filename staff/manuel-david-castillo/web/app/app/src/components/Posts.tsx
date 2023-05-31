@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react'
 import EditePost from './EditPost'
 import DeletePost from './DeletePost'
+import Block from './Block'
 import retrievePosts from '../logic/retrievePosts'
 import toggleFavPost from '../logic/toggleFavPost'
+import Post from '../logic/types/Post'
 
 export default function Posts({ lastUpdate }: { lastUpdate: number | null }): JSX.Element {
   const [viewUpdatePassword, setViewUpdatePassword] = useState(false)
-  const [viewRemovePost, setViewRemovePost] = useState(false)
-  const [viewEditPost, setViewEditPost] = useState(false)
 
-  let _posts
+  /* Lanza los posts */
+  let _posts: Array<Post> = [];
 
   try {
     _posts = retrievePosts(sessionStorage.userId)
@@ -29,6 +30,8 @@ export default function Posts({ lastUpdate }: { lastUpdate: number | null }): JS
   }, [lastUpdate])
 
   /* Eliminar post */
+  const [viewRemovePost, setViewRemovePost] = useState(false)
+
   function handleRemovePostButton(postId: string) {
     setViewRemovePost(true)
 
@@ -41,7 +44,25 @@ export default function Posts({ lastUpdate }: { lastUpdate: number | null }): JS
     setPosts(posts)
   }
 
+  /* Bloquear usuario */
+  const [viewBlockPost, setViewBlockPost] = useState(false)
+
+  function handleUserBlock(userPost: string | undefined) {
+    setViewBlockPost(true)
+
+    sessionStorage.userPost = userPost
+  }
+
+  function hideUserBlock() {
+    setViewBlockPost(false)
+
+    const posts = retrievePosts(sessionStorage.userId)
+    setPosts(posts)
+  }
+
   /* Editar post */
+  const [viewEditPost, setViewEditPost] = useState(false)
+
   function handleEditPostButton(postId: string, postText: string) {
     setViewEditPost(true)
 
@@ -56,13 +77,7 @@ export default function Posts({ lastUpdate }: { lastUpdate: number | null }): JS
   }
 
   /* Comprobar si el post es del usuario */
-  function postOfUser(postId: string) {
-    if (postId === sessionStorage.userId) {
-      return true
-    } else {
-      return false
-    }
-  }
+  const postOfUser = (postId: string | undefined) => postId === sessionStorage.userId
 
   /* Pone y quita los fav */
   function handleToggleFavPost(postId: string) {
@@ -81,24 +96,23 @@ export default function Posts({ lastUpdate }: { lastUpdate: number | null }): JS
   document.body.style.overflow = (viewEditPost || viewRemovePost ||
     viewUpdatePassword) ? 'hidden' : 'auto'
 
-  console.log('Posts -> render')
-
   /* Pinta el dom */
   return <ul className="ul-post">
-    {posts!.map(post => <li className="post">
-      <p className="post-name">{post.user}</p>
-      <p className="post-name">{post.text}</p>
-      <time className="post-name">{post.date.toLocaleString()}</time>
+    {posts.map(post => <li className="post">
+      <p className="post-name"> {post.user?.name}</p>
+      <p className="post-name"> {post.text}</p>
+      <time className="post-name"> {post.date.toLocaleString()}</time>
       <div>
-        {postOfUser(post.user) && <button onClick={() => handleEditPostButton(post.id, post.text)} className="button">Edit</button>}
-        {postOfUser(post.user) && <button onClick={() => handleRemovePostButton(post.id)} className="button">Remove</button>}
+        {postOfUser(post.user?.id) && <button onClick={() => handleEditPostButton(post.id, post.text)} className="button">Edit</button>}
+        {postOfUser(post.user?.id) && <button onClick={() => handleRemovePostButton(post.id)} className="button">Remove</button>}
         <button onClick={() => handleToggleFavPost(post.id)} className="button">{post.fav ? '⭐' : '☆'}</button>
+        {!postOfUser(post.user?.id) && <button onClick={() => handleUserBlock(post.user?.id)} className='button'>Bloquear</button>}
       </div>
-
     </li>)}
 
     {viewEditPost && <EditePost onBackEditPost={hideEditPostButton} />}
     {viewRemovePost && <DeletePost onBackRemovePost={hideRemovePostButton} />}
+    {viewBlockPost && <Block onBackBlockPost={hideUserBlock} />}
 
   </ul>
 }

@@ -5,6 +5,7 @@ import FavPosts from "../components/FavPosts"
 import Posts from '../components/Posts'
 import { useState } from "react"
 import { Routes, Route, Link, useNavigate } from 'react-router-dom'
+import MyPosts from "../components/MyPosts"
 
 function HomePage() {
   const navigate = useNavigate();
@@ -50,6 +51,9 @@ function HomePage() {
         <Link to="/fav-posts" className="nav-profile nav-link">Favorite Posts</Link>
       </nav>
       <nav>
+        <Link to="/my-posts" className="nav-profile nav-link">My Posts</Link>
+      </nav>
+      <nav>
         <Link to="/profile" className="nav-profile nav-link">Profile</Link>
       </nav>
       <nav>
@@ -60,6 +64,7 @@ function HomePage() {
     <Routes>
       <Route path="/" element={<Posts lastUpdate={lastUpdate} />} />
       <Route path="/fav-posts" element={<FavPosts />} />
+      <Route path="/my-posts" element={<MyPosts />} />
       <Route path="/profile" element={<UpdatePassword />} />
     </Routes>
 

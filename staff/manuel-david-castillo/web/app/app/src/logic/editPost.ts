@@ -1,5 +1,3 @@
-import { posts } from "../data";
-
 export default function editPost(postUser: string, postId: string, newText: string) {
     if (typeof newText !== "string") throw new Error("newText is not a string");
     if (!newText) throw new Error("empty new text")
@@ -8,9 +6,15 @@ export default function editPost(postUser: string, postId: string, newText: stri
 
     if (postUser !== sessionStorage.userId) throw new Error('Incorrect user')
 
+    const posts = JSON.parse(localStorage.posts)
+
+    if (!posts) throw new Error('posts not founf')
+
     const postIndex = posts.findIndex(post => post.id === postId)
     if (postIndex < 0) throw new Error(`post with id ${postId} not found`)
 
     posts[postIndex].text = newText
     posts[postIndex].date = new Date()
+
+    localStorage.posts = JSON.stringify(posts)
 }

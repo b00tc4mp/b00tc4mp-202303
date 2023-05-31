@@ -1,8 +1,8 @@
-import { User } from "../data";
+import { UserData } from "../data";
 import findUserById from "./helpers/findUserById";
 
 export default function checkFavPost(userId: string, postId: string) {
-    let user: User | null = findUserById(userId);
+    let user: UserData | null = findUserById(userId);
 
     if (user) {
         for (let i = 0; i < user.favs.length; i++) {
