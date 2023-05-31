@@ -1,0 +1,151 @@
+body {
+  overflow: auto;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: darkturquoise;
+  width: 300px;
+  height: auto;
+  border-radius: 5px;
+  border: solid 2px black;
+}
+
+.input {
+  margin: 5px;
+  width: 80%;
+  border-radius: 5px;
+}
+
+.button {
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.anchor {
+  margin: 5px;
+  color: black;
+}
+
+.home {
+  margin-top: 4rem;
+}
+
+.home-header {
+  background-color: black;
+  height: 4rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.home-title {
+  color: white;
+}
+
+.nav-link {
+  color: white;
+}
+
+.home-footer {
+  background-color: black;
+  height: 4rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.form-post {
+  background-color: darkturquoise;
+  width: 400px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  border-radius: 5px;
+}
+
+.create-post {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.new-post {
+  border-radius: 10px;
+  width: 300px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+  background-color: darkturquoise;
+  border: solid 4px black;
+}
+
+.button-post {
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.change-password {
+  margin-bottom: 70px;
+}
+
+.post-name {
+  background-color: white;
+  width: 90%;
+  height: auto;
+  border: solid black 2px;
+  margin: 5px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.ul-post {
+  margin-bottom: 80px;
+}
+
+.post {
+  background-color: darkturquoise;
+  width: 400px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  border-radius: 5px;
+  border: solid black 2px;
+}
+
+.textarea {
+  margin-top: 10px;
+}

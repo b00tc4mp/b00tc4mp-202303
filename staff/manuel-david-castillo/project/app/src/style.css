@@ -1,0 +1,467 @@
+body {
+  background-image: url(https://imgs.search.brave.com/JLV_4j_usMkSkK64PtSFPTF0V7G69Iu2ZxG9xpFWjAQ/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly93d3cu/c29jaWFsc2VvLmNv/bS93cC1jb250ZW50/L3VwbG9hZHMvMjAx/OC8xMS9ibGFjay1i/cmljay5qcGc);
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  align-content: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.div-h1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100px;
+  margin-left: 15px;
+}
+
+.h1 {
+  color: white;
+  font-size: 30px;
+}
+
+.div-slogan {
+  height: 100%;
+  width: auto;
+  display: flex;
+  align-items: end;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.slogan {
+  font-size: 20px;
+  color: white;
+}
+
+.logo {
+  width: 120px;
+  height: 100px;
+}
+
+.image-and-form {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.log-in-image {
+  width: 350px;
+  height: 350px;
+}
+
+.form {
+  background-color: rgba(0, 0, 0, 0.4);
+  border: whitesmoke solid 4px;
+  width: 400px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+h2 {
+  margin-bottom: 15px;
+  color: white;
+}
+
+.e-mail {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.input-e-mail {
+  margin-left: 5px;
+}
+
+.password {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+.input-password {
+  margin-left: 5px;
+}
+
+p {
+  font-size: 20px;
+  color: white;
+}
+
+.log-in {
+  display: flex;
+  justify-content: center;
+}
+
+.input-log-in {
+  width: 100px;
+  height: 30px;
+}
+
+.a-create-account {
+  height: 70px;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  margin-left: 10px;
+}
+
+.p-section {
+  margin-right: 5px;
+}
+
+.create-account {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.input-create-account {
+  height: 30px;
+  width: 120px;
+}
+
+.have-account {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+a {
+  color: whitesmoke;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.day {
+  width: 35px;
+}
+
+.age {
+  width: 60px;
+}
+
+.select {
+  height: 21px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.div-mensaje {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mensaje {
+  display: none;
+  color: red;
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  text-align: center;
+}
+
+.body-calendar {
+  align-items: start;
+}
+
+.h2-home {
+  font-size: 30px;
+}
+
+.div-h2-home {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.home {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-calendar-calculator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+}
+
+.index {
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: auto;
+  border-bottom: solid gray 4px;
+  border-top: solid gray 2px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.div-index {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+}
+
+.p-div-index {
+  width: auto;
+  margin: 0;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+
+  background-color: white;
+  width: 90%;
+  height: 400px;
+  margin-top: 10px;
+  margin-left: 50px;
+}
+
+.month-and-year {
+  border: solid grey 5px;
+  width: auto;
+  grid-column: 1 / 8;
+  display: flex;
+  justify-content: center;
+}
+
+.p-month {
+  color: black;
+  font-size: 25px;
+  margin: 10px;
+}
+
+.week {
+  grid-column: 1/ 8;
+  grid-row: 2;
+  border: solid grey 5px;
+  border-top: 0;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.week-day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: solid 3px black;
+}
+
+.sunday {
+  border-right: 0;
+}
+
+.days {
+  grid-column: 1 / 8;
+  grid-row: 3 / 8;
+  border: solid grey 5px;
+  border-top: 0;
+  width: auto;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+}
+
+.box {
+  border: solid black 2px;
+}
+
+.p-day {
+  color: black;
+  display: flex;
+  margin: 2px;
+}
+
+.calculator {
+  width: 400px;
+  border: solid 5px grey;
+  display: flex;
+  flex-direction: column;
+}
+
+.h3 {
+  color: white;
+  margin-left: 10px;
+}
+
+.div-calculator {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: solid 2px grey;
+  border-left: 0;
+  border-right: 0;
+}
+
+.div-div-calculator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+}
+
+.div-reps-bench-press {
+  display: flex;
+}
+
+.kg-bench-press {
+  margin-left: 5px;
+}
+
+.input-calculator {
+  margin-left: 5px;
+}
+
+.input-bench-press {
+  width: 200px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.input-pull-up {
+  width: 200px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.result-1 {
+  color: white;
+  margin-bottom: 10px;
+}
+.result-2 {
+  color: white;
+  margin-bottom: 10px;
+}
+
+.update-rm-bench-press {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: solid 2px grey;
+}
+
+.update-rm-pull-up {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile {
+  width: 400px;
+  border: solid 5px grey;
+  display: flex;
+  flex-direction: column;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.h3-name {
+  font-size: 22px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.user-data {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: solid 2px grey;
+  border-left: 0;
+  border-right: 0;
+}
+
+.change-password {
+  margin-top: 10px;
+}
+
+.div-user-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-data {
+  margin-right: 5px;
+}
+
+.profile-input {
+  width: 50px;
+}
+
+.profile-ancors {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 220px;
+}
+
+.div-yes-no {
+  display: flex;
+  justify-content: space-around;
+  width: 120px;
+}
+
+.div-change-password {
+  background-color: black;
+  border-top: solid gray 2px;
+}
+
+.input-current-password {
+  width: 100px;
+}
+
+.input-new-password {
+  width: 100px;
+}
+
+.input-confirm-new-password {
+  width: 100px;
+}
+
+.div-update-password {
+  display: flex;
+  justify-content: space-around;
+  width: 220px;
+}
+
+.off {
+  display: none;
+}
